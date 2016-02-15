@@ -18,7 +18,7 @@ class NavigationComponent extends Component
         $controller = $this->_registry->getController();
 
         foreach (self::$_items as $key => $item) {
-            self::$_items[$key]['active'] = $this->__isActive($item['title'], $controller);
+            self::$_items[$key]['active'] = $this->_isActive($item['title'], $controller);
         }
 
         $controller->set('navigation', ['tabs' => self::$_items]);
@@ -43,7 +43,7 @@ class NavigationComponent extends Component
      * @param  AppController $controller The current controller
      * @return bool If the specified tab is active
      */
-    private function __isActive($name, AppController $controller)
+    protected function _isActive($name, AppController $controller)
     {
         return strtolower($name) == strtolower($controller->name);
     }
