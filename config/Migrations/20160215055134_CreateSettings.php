@@ -1,4 +1,6 @@
 <?php
+namespace App\Migrations;
+
 use Migrations\AbstractMigration;
 
 class CreateSettings extends AbstractMigration

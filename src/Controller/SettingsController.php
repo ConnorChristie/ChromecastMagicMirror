@@ -5,6 +5,9 @@ use App\Model\Entity\Settings;
 
 class SettingsController extends AppController
 {
+    /**
+     * Renders the settings index
+     */
     public function index()
     {
         $model = new Settings();
@@ -12,6 +15,9 @@ class SettingsController extends AppController
         $this->renderModelView('index', $model);
     }
 
+    /**
+     * Updates the settings with the submitted form data
+     */
     public function update()
     {
         $model = new Settings();

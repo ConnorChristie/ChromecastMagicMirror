@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
+use Cake\ORM\Entity;
 
 /**
  * Application Controller
@@ -45,6 +46,14 @@ class AppController extends Controller
         $this->loadComponent('Navigation');
     }
 
+    /**
+     * Renders the specified view with the model
+     *
+     * @param string $view The view to render
+     * @param Entity $model The model to pass to the view
+     * @param string $layout The layout to use for the view
+     * @return \Cake\Network\Response
+     */
     public function renderModelView($view = null, $model = null, $layout = null)
     {
         $this->set(compact('model'));
@@ -61,8 +70,7 @@ class AppController extends Controller
     public function beforeRender(Event $event)
     {
         if (!array_key_exists('_serialize', $this->viewVars) &&
-            in_array($this->response->type(), ['application/json', 'application/xml'])
-        )
+            in_array($this->response->type(), ['application/json', 'application/xml']))
         {
             $this->set('_serialize', true);
         }

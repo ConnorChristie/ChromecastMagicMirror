@@ -6,6 +6,12 @@ use Cake\View\Helper\HtmlHelper;
 
 class NavigationHelper extends HtmlHelper
 {
+    /**
+     * Generates a HTML menu from the array of nav items
+     *
+     * @param $navItems An array of nav items
+     * @return string The navbar menu items as HTML
+     */
     public function menu($navItems)
     {
         $items = [];
@@ -20,6 +26,15 @@ class NavigationHelper extends HtmlHelper
         return $this->nestedList($items, ['class' => 'nav navbar-nav']);
     }
 
+    /**
+     * Internal function to build a nested list (UL/OL) out of an associative array.
+     *
+     * @param array $items Set of elements to list.
+     * @param array $options Additional HTML attributes of the list (ol/ul) tag.
+     * @param array $itemOptions Options and additional HTML attributes of the list item (LI) tag.
+     * @return string The nested list element
+     * @see HtmlHelper::nestedList()
+     */
     protected function _nestedListItem($items, $options, $itemOptions)
     {
         $out = '';
