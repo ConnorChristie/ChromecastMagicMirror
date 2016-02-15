@@ -49,9 +49,9 @@ class AppController extends Controller
     /**
      * Renders the specified view with the model
      *
-     * @param string $view The view to render
-     * @param Entity $model The model to pass to the view
-     * @param string $layout The layout to use for the view
+     * @param  string $view   The view to render
+     * @param  Entity $model  The model to pass to the view
+     * @param  string $layout The layout to use for the view
      * @return \Cake\Network\Response
      */
     public function renderModelView($view = null, $model = null, $layout = null)
@@ -64,13 +64,12 @@ class AppController extends Controller
     /**
      * Before render callback.
      *
-     * @param \Cake\Event\Event $event The beforeRender event.
+     * @param  \Cake\Event\Event $event The beforeRender event.
      * @return void
      */
     public function beforeRender(Event $event)
     {
-        if (!array_key_exists('_serialize', $this->viewVars) && in_array($this->response->type(), ['application/json', 'application/xml']))
-        {
+        if (!array_key_exists('_serialize', $this->viewVars) && in_array($this->response->type(), ['application/json', 'application/xml'])) {
             $this->set('_serialize', true);
         }
     }

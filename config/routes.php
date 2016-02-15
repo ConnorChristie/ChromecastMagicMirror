@@ -13,9 +13,9 @@
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link      http://cakephp.org CakePHP(tm) Project
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
 use App\Controller\Component\NavigationComponent;
@@ -38,19 +38,19 @@ use Cake\Routing\Router;
  * Note that `Route` does not do any inflections on URLs which will result in
  * inconsistently cased URLs when used with `:plugin`, `:controller` and
  * `:action` markers.
- *
  */
 Router::defaultRouteClass('DashedRoute');
 
-Router::scope('/', function ($routes) {
-    /**
+Router::scope(
+    '/', function ($routes) {
+        /**
      * Here, we are connecting '/' (base path) to a controller called 'Pages',
      * its action called 'display', and we pass a param to select the view file
      * to use (in this case, src/Template/Pages/home.ctp)...
      */
-    $routes->connect('/', ['controller' => 'Settings', 'action' => 'index']);
+        $routes->connect('/', ['controller' => 'Settings', 'action' => 'index']);
 
-    /**
+        /**
      * Connect catchall routes for all controllers.
      *
      * Using the argument `DashedRoute`, the `fallbacks` method is a shortcut for
@@ -66,8 +66,9 @@ Router::scope('/', function ($routes) {
      * You can remove these routes once you've connected the
      * routes you want in your application.
      */
-    $routes->fallbacks('DashedRoute');
-});
+        $routes->fallbacks('DashedRoute');
+    }
+);
 
 NavigationComponent::addTab('Settings', '/');
 NavigationComponent::addTab('Help', '/help');

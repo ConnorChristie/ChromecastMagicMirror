@@ -9,7 +9,7 @@ class NavigationHelper extends HtmlHelper
     /**
      * Generates a HTML menu from the array of nav items
      *
-     * @param array $navItems An array of nav items
+     * @param  array $navItems An array of nav items
      * @return string The navbar menu items as HTML
      */
     public function menu($navItems)
@@ -29,11 +29,11 @@ class NavigationHelper extends HtmlHelper
     /**
      * Internal function to build a nested list (UL/OL) out of an associative array.
      *
-     * @param array $items Set of elements to list.
-     * @param array $options Additional HTML attributes of the list (ol/ul) tag.
-     * @param array $itemOptions Options and additional HTML attributes of the list item (LI) tag.
+     * @param  array $items       Set of elements to list.
+     * @param  array $options     Additional HTML attributes of the list (ol/ul) tag.
+     * @param  array $itemOptions Options and additional HTML attributes of the list item (LI) tag.
      * @return string The nested list element
-     * @see HtmlHelper::nestedList()
+     * @see    HtmlHelper::nestedList()
      */
     protected function _nestedListItem($items, $options, $itemOptions)
     {
@@ -51,10 +51,12 @@ class NavigationHelper extends HtmlHelper
             } elseif (isset($itemOptions['odd']) && $index % 2 !== 0) {
                 $itemOptions['class'] = $itemOptions['odd'];
             }
-            $out .= $this->formatTemplate('li', [
+            $out .= $this->formatTemplate(
+                'li', [
                 'attrs' => $this->templater()->formatAttributes($itemOptions, ['even', 'odd']),
                 'content' => $key
-            ]);
+                ]
+            );
             $index++;
         }
         return $out;

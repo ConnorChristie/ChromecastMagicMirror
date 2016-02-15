@@ -28,8 +28,8 @@ class NavigationComponent extends Component
     /**
      * Adds a tab to the navigation bar
      *
-     * @param string $title The title of the tab
-     * @param string $href The link of the tab
+     * @param  string $title The title of the tab
+     * @param  string $href  The link of the tab
      * @return void
      */
     public static function addTab($title, $href)
@@ -40,8 +40,8 @@ class NavigationComponent extends Component
     /**
      * Checks if the tab is active
      *
-     * @param string $name The name of the tab to check
-     * @param AppController $controller The current controller
+     * @param  string        $name       The name of the tab to check
+     * @param  AppController $controller The current controller
      * @return bool If the specified tab is active
      */
     private function _isActive($name, AppController $controller)

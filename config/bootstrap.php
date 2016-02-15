@@ -7,10 +7,10 @@
  * For full copyright and license information, please see the LICENSE.txt
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
- * @since         0.10.8
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
+ * @copyright Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link      http://cakephp.org CakePHP(tm) Project
+ * @since     0.10.8
+ * @license   http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
 /**
@@ -110,7 +110,7 @@ if ($isCli) {
 
 // Include the CLI bootstrap overrides.
 if ($isCli) {
-    require __DIR__ . '/bootstrap_cli.php';
+    include __DIR__ . '/bootstrap_cli.php';
 }
 
 /**
@@ -149,14 +149,18 @@ Security::salt(Configure::consume('Security.salt'));
 /**
  * Setup detectors for mobile and tablet.
  */
-Request::addDetector('mobile', function ($request) {
-    $detector = new \Detection\MobileDetect();
-    return $detector->isMobile();
-});
-Request::addDetector('tablet', function ($request) {
-    $detector = new \Detection\MobileDetect();
-    return $detector->isTablet();
-});
+Request::addDetector(
+    'mobile', function ($request) {
+        $detector = new \Detection\MobileDetect();
+        return $detector->isMobile();
+    }
+);
+Request::addDetector(
+    'tablet', function ($request) {
+        $detector = new \Detection\MobileDetect();
+        return $detector->isTablet();
+    }
+);
 
 /**
  * Custom Inflector rules, can be set to correctly pluralize or singularize
@@ -176,7 +180,6 @@ Request::addDetector('tablet', function ($request) {
  *
  * Plugin::loadAll(); // Loads all plugins at once
  * Plugin::load('Migrations'); //Loads a single plugin named Migrations
- *
  */
 
 Plugin::load('Migrations');
