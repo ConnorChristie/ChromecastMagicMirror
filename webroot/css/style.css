@@ -1,0 +1,31 @@
+.list-group {
+    margin-bottom: 0px;
+}
+
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: .75rem 1.25rem;
+    margin-bottom: -1px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+.list-group-item.indented {
+	padding-left: 30px;
+}
+
+.form-group.required .control-label:after {
+    content: " *";
+    color: red;
+}
+
+.collapse.in .navbar-nav, .collapsing .navbar-nav {
+    margin: 0px -15px;
+}
+
+@media (min-width: 768px) {
+	.navbar-right {
+	    margin-right: 0px;
+	}
+}
