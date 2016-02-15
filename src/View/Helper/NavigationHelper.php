@@ -16,8 +16,7 @@ class NavigationHelper extends HtmlHelper
     {
         $items = [];
 
-        foreach ($navItems as $navItem)
-        {
+        foreach ($navItems as $navItem) {
             $activeCss = $navItem['active'] ? 'active' : '';
 
             $items += [sprintf('<a href="%s">%s</a>', $navItem['href'], $navItem['title']) => ['class' => $activeCss]];
@@ -51,12 +50,10 @@ class NavigationHelper extends HtmlHelper
             } elseif (isset($itemOptions['odd']) && $index % 2 !== 0) {
                 $itemOptions['class'] = $itemOptions['odd'];
             }
-            $out .= $this->formatTemplate(
-                'li', [
+            $out .= $this->formatTemplate('li', [
                 'attrs' => $this->templater()->formatAttributes($itemOptions, ['even', 'odd']),
                 'content' => $key
-                ]
-            );
+            ]);
             $index++;
         }
         return $out;

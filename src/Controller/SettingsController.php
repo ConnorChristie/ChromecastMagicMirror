@@ -27,13 +27,11 @@ class SettingsController extends AppController
         $model = new Settings();
 
         if ($this->request->is('POST')) {
-            $this->Settings->patchEntity(
-                $model, $this->request->data, [
+            $this->Settings->patchEntity($model, $this->request->data, [
                 'associated' => [
                     'General'
                 ]
-                ]
-            );
+            ]);
 
             //$this->Settings->save($model);
 

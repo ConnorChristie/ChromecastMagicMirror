@@ -17,36 +17,46 @@ class CreateSettings extends AbstractMigration
     {
         $table = $this->table('settings');
         $table->addColumn(
-            'title', 'string', [
-            'default' => null,
-            'limit' => 255,
-            'null' => false,
+            'title',
+            'string',
+            [
+                'default' => null,
+                'limit' => 255,
+                'null' => false,
             ]
         );
         $table->addColumn(
-            'category', 'string', [
-            'default' => null,
-            'limit' => 255,
-            'null' => false,
+            'category',
+            'string',
+            [
+                'default' => null,
+                'limit' => 255,
+                'null' => false,
             ]
         );
         $table->addColumn(
-            'default', 'string', [
-            'default' => null,
-            'limit' => 255,
-            'null' => false,
+            'default',
+            'string',
+            [
+                'default' => null,
+                'limit' => 255,
+                'null' => false,
             ]
         );
         $table->addColumn(
-            'created', 'datetime', [
-            'default' => null,
-            'null' => false,
+            'created',
+            'datetime',
+            [
+                'default' => null,
+                'null' => false,
             ]
         );
         $table->addColumn(
-            'modified', 'datetime', [
-            'default' => null,
-            'null' => false,
+            'modified',
+            'datetime',
+            [
+                'default' => null,
+                'null' => false,
             ]
         );
         $table->create();

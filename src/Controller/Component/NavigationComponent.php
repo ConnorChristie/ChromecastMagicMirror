@@ -17,8 +17,7 @@ class NavigationComponent extends Component
     {
         $controller = $this->_registry->getController();
 
-        foreach (self::$_items as $key => $item)
-        {
+        foreach (self::$_items as $key => $item) {
             self::$_items[$key]['active'] = $this->_isActive($item['title'], $controller);
         }
 
