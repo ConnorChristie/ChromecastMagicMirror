@@ -7,6 +7,8 @@ class AppView extends View
 {
     /**
      * Initializes the view with a navigation helper
+     *
+     * @return void
      */
     public function initialize()
     {

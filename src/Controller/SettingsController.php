@@ -7,6 +7,8 @@ class SettingsController extends AppController
 {
     /**
      * Renders the settings index
+     *
+     * @return void
      */
     public function index()
     {
@@ -17,6 +19,8 @@ class SettingsController extends AppController
 
     /**
      * Updates the settings with the submitted form data
+     *
+     * @return void
      */
     public function update()
     {

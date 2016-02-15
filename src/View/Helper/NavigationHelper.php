@@ -9,7 +9,7 @@ class NavigationHelper extends HtmlHelper
     /**
      * Generates a HTML menu from the array of nav items
      *
-     * @param $navItems An array of nav items
+     * @param array $navItems An array of nav items
      * @return string The navbar menu items as HTML
      */
     public function menu($navItems)

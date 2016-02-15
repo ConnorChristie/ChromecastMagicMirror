@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controller\Component;
 
 use App\Controller\AppController;
@@ -11,6 +10,8 @@ class NavigationComponent extends Component
 
     /**
      * Adds the tabs to the page before it renders
+     *
+     * @return void
      */
     public function beforeRender()
     {
@@ -27,8 +28,9 @@ class NavigationComponent extends Component
     /**
      * Adds a tab to the navigation bar
      *
-     * @param $title The title of the tab
-     * @param $href The link of the tab
+     * @param string $title The title of the tab
+     * @param string $href The link of the tab
+     * @return void
      */
     public static function addTab($title, $href)
     {
@@ -38,7 +40,7 @@ class NavigationComponent extends Component
     /**
      * Checks if the tab is active
      *
-     * @param $name The name of the tab to check
+     * @param string $name The name of the tab to check
      * @param AppController $controller The current controller
      * @return bool If the specified tab is active
      */

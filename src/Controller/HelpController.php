@@ -6,6 +6,8 @@ class HelpController extends AppController
 {
     /**
      * Renders the help page
+     *
+     * @return void
      */
     public function index()
     {
