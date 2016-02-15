@@ -9,11 +9,6 @@ class SettingsController extends AppController
     {
         $model = new Settings();
 
-	    $model->title = 'General';
-	    $model->category = 1;
-
-	    $this->Settings->save($model);
-
         $this->renderModelView('index', $model);
     }
 
