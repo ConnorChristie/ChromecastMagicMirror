@@ -34,7 +34,7 @@ class SettingsController extends AppController
                 ]
             ]);
 
-            $this->Settings->save($model);
+            //$this->Settings->save($model);
 
             $this->Flash->success('Successfully updated the settings! ' . print_r($model, true));
         }
