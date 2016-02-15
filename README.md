@@ -1,6 +1,6 @@
 # CakePHP Application Skeleton
 
-[![Build Status](https://img.shields.io/travis/cakephp/app/master.svg?style=flat-square)](https://travis-ci.org/cakephp/app)
+[![Build Status](https://img.shields.io/travis/TheChillerCraft/ChromecastMagicMirror.svg?style=flat-square)](https://travis-ci.org/TheChillerCraft/ChromecastMagicMirror)
 [![License](https://img.shields.io/packagist/l/cakephp/app.svg?style=flat-square)](https://packagist.org/packages/cakephp/app)
 
 A skeleton for creating applications with [CakePHP](http://cakephp.org) 3.x.
