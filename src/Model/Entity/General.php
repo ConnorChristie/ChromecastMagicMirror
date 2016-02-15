@@ -5,5 +5,5 @@ use Cake\ORM\Entity;
 
 class General extends Entity
 {
-	
+
 }

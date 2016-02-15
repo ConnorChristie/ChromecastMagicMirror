@@ -5,5 +5,5 @@ use Cake\ORM\Entity;
 
 class Settings extends Entity
 {
-	
+
 }

@@ -14,57 +14,57 @@ use Cake\Event\Event;
  */
 class AppController extends Controller
 {
-	public $helpers = [
-		'Html' => [
-			'className' => 'Bootstrap.BootstrapHtml'
-		],
-		'Form' => [
-			'className' => 'Bootstrap.BootstrapForm'
-		],
-		'Paginator' => [
-			'className' => 'Bootstrap.BootstrapPaginator'
-		],
-		'Modal' => [
-			'className' => 'Bootstrap.BootstrapModal'
-		]
-	];
+    public $helpers = [
+        'Html' => [
+            'className' => 'Bootstrap.BootstrapHtml'
+        ],
+        'Form' => [
+            'className' => 'Bootstrap.BootstrapForm'
+        ],
+        'Paginator' => [
+            'className' => 'Bootstrap.BootstrapPaginator'
+        ],
+        'Modal' => [
+            'className' => 'Bootstrap.BootstrapModal'
+        ]
+    ];
 
-	/**
-	 * Initialization hook method.
-	 *
-	 * Use this method to add common initialization code like loading components.
-	 *
-	 * e.g. `$this->loadComponent('Security');`
-	 *
-	 * @return void
-	 */
-	public function initialize()
-	{
-		$this->loadComponent('RequestHandler');
-		$this->loadComponent('Flash');
-		$this->loadComponent('Navigation');
-	}
+    /**
+     * Initialization hook method.
+     *
+     * Use this method to add common initialization code like loading components.
+     *
+     * e.g. `$this->loadComponent('Security');`
+     *
+     * @return void
+     */
+    public function initialize()
+    {
+        $this->loadComponent('RequestHandler');
+        $this->loadComponent('Flash');
+        $this->loadComponent('Navigation');
+    }
 
-	public function renderModelView($view = null, $model = null, $layout = null)
-	{
-		$this->set(compact('model'));
+    public function renderModelView($view = null, $model = null, $layout = null)
+    {
+        $this->set(compact('model'));
 
-		return parent::render($view, $layout);
-	}
+        return parent::render($view, $layout);
+    }
 
-	/**
-	 * Before render callback.
-	 *
-	 * @param \Cake\Event\Event $event The beforeRender event.
-	 * @return void
-	 */
-	public function beforeRender(Event $event)
-	{
-		if (!array_key_exists('_serialize', $this->viewVars) &&
-			in_array($this->response->type(), ['application/json', 'application/xml'])
-		)
-		{
-			$this->set('_serialize', true);
-		}
-	}
+    /**
+     * Before render callback.
+     *
+     * @param \Cake\Event\Event $event The beforeRender event.
+     * @return void
+     */
+    public function beforeRender(Event $event)
+    {
+        if (!array_key_exists('_serialize', $this->viewVars) &&
+            in_array($this->response->type(), ['application/json', 'application/xml'])
+        )
+        {
+            $this->set('_serialize', true);
+        }
+    }
 }

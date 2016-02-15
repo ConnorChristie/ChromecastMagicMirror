@@ -14,21 +14,21 @@ class SettingsController extends AppController
 
     public function update()
     {
-	    $model = new Settings();
+        $model = new Settings();
 
-	    if ($this->request->is('POST'))
-	    {
-			$this->Settings->patchEntity($model, $this->request->data, [
-				'associated' => [
-					'General'
-				]
-			]);
+        if ($this->request->is('POST'))
+        {
+            $this->Settings->patchEntity($model, $this->request->data, [
+                'associated' => [
+                    'General'
+                ]
+            ]);
 
-		    $this->Settings->save($model);
+            $this->Settings->save($model);
 
-		    $this->Flash->success('Successfully updated the settings! ' . print_r($model, true));
-	    }
+            $this->Flash->success('Successfully updated the settings! ' . print_r($model, true));
+        }
 
-		$this->redirect(['action' => 'index']);
+        $this->redirect(['action' => 'index']);
     }
 }
