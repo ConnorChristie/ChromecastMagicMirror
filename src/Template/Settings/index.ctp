@@ -1,32 +1,47 @@
 <?= $this->Form->create($model, ['url' => ['action' => 'update']]) ?>
-	<div class="row">
-		<div class="col-md-6">
-			<div class="panel panel-primary">
-				<div class="panel-heading clearfix">
-					<h3 class="panel-title">Magic Mirror Settings</h3>
-				</div>
-				<div class="panel-body">
+    <div class="row">
+        <?php foreach ($model as $id => $category): ?>
+            <div class="col-md-<?= $category->panel_width ?>">
+                <div class="panel panel-primary">
+                    <div class="panel-heading clearfix">
+                        <h3 class="panel-title"><?= $category->name ?></h3>
+                    </div>
+                    <div class="panel-body">
+                        <?php
+                        foreach ($category->settings as $setting)
+                        {
+                            $inputOptions = ['label' => $setting->name, 'default' => $setting->default_value, 'required' => $setting->required];
+                            $options = $setting->options;
 
-					<?= $this->Form->input('general.name', ['required' => true]) ?>
+                            if (!empty($options))
+                            {
+                                $optionValues = explode(',', $options);
+                                $options = [];
 
-					<?= $this->Form->input('general.default_value', ['required' => true]) ?>
+                                foreach ($optionValues as $option)
+                                {
+                                    if (strpos($option, '=') !== false)
+                                    {
+                                        $keyValue = explode('=', $option);
 
-					<?= $this->Form->input('general.language', ['options' => ['English', 'Spanish'], 'required' => true]) ?>
+                                        $options[$keyValue[0]] = $keyValue[1];
+                                    } else
+                                    {
+                                        $options[strtolower($option)] = $option;
+                                    }
 
-					<?= $this->Form->input('general.time_format', ['options' => ['12' => '12 Hour', '24' => '24 Hour'], 'required' => true]) ?>
+                                    $inputOptions['options'] = $options;
+                                }
+                            }
 
-					<?= $this->Form->input('general.rotation', ['options' => ['Portrait', 'Landscape'], 'required' => true]) ?>
-
-					<div class="form-group required">
-						<label class="control-label" for="receiver_ip">Receiver IP Address (If changed, refresh and re-cast)</label>
-						<select class="form-control" id="receiver_ip" name="general[appId]">
-
-						</select>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                            echo $this->Form->input($id . '.settings.' . $setting->id . '.setting_value.value', $inputOptions);
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
 
 	<?= $this->Form->submit('Save Settings') ?>
 <?= $this->Form->end() ?>

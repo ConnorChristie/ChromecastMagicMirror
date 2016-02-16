@@ -3,7 +3,7 @@ namespace App\Model\Entity;
 
 use Cake\ORM\Entity;
 
-class Settings extends Entity
+class SettingValue extends Entity
 {
-
+    
 }

@@ -209,3 +209,5 @@ Type::build('date')
 Type::build('datetime')
     ->useImmutable()
     ->useLocaleParser();
+
+\App\Model\Table\SettingsTable::createSettingsTable('todolist');

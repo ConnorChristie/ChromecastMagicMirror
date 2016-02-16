@@ -1,7 +1,9 @@
 <?php
 namespace App\Controller;
 
-use App\Model\Entity\Settings;
+use App\Model\Entity\SettingValue;
+use Cake\ORM\TableRegistry;
+use Cake\Utility\Hash;
 
 class SettingsController extends AppController
 {
@@ -12,9 +14,17 @@ class SettingsController extends AppController
      */
     public function index()
     {
-        $model = new Settings();
+        $categoriesTable = TableRegistry::get('Categories');
 
-        $this->renderModelView('index', $model);
+        $categories = $categoriesTable->find('all')->contain(['Settings' => ['SettingValues']])->all()->toArray();
+        $categories = Hash::combine($categories, '{n}.id', '{n}');
+
+        foreach ($categories as $category) {
+            $category->settings = Hash::combine(Hash::sort($category->settings, '{n}.id', 'asc'), '{n}.id', '{n}');
+        }
+
+        $this->set(compact('categories'));
+        $this->renderModelView('index', $categories);
     }
 
     /**
@@ -24,12 +34,14 @@ class SettingsController extends AppController
      */
     public function update()
     {
-        $model = new Settings();
+        $model = new SettingValue();
 
-        if ($this->request->is('POST')) {
-            $this->Settings->patchEntity($model, $this->request->data, [
+        if ($this->request->is('PUT')) {
+            $settingsTable = TableRegistry::get('SettingValues');
+
+            $settingsTable->patchEntity($model, $this->request->data, [
                 'associated' => [
-                    'General'
+                    'Settings' => ['Categories']
                 ]
             ]);
 
