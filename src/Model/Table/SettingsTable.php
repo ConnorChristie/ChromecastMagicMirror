@@ -19,7 +19,7 @@ class SettingsTable extends Table
     /**
      * Creates a settings table
      *
-     * @param $name The table name
+     * @param string $name The table name
      * @return void
      */
     public static function createSettingsTable($name)
