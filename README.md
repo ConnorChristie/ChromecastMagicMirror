@@ -1,26 +1,30 @@
-# CakePHP Application Skeleton
+# Chromecast Magic Mirror
 
 [![Build Status](https://img.shields.io/travis/TheChillerCraft/ChromecastMagicMirror.svg?style=flat-square)](https://travis-ci.org/TheChillerCraft/ChromecastMagicMirror)
 [![License](https://img.shields.io/packagist/l/cakephp/app.svg?style=flat-square)](https://packagist.org/packages/cakephp/app)
 
-A skeleton for creating applications with [CakePHP](http://cakephp.org) 3.x.
+This Magic Mirror settings interface uses [CakePHP](http://cakephp.org/) for the backend and simple PHP and HTML for the view that shows on the actual Magic Mirror.
 
-The framework source code can be found here: [cakephp/cakephp](https://github.com/cakephp/cakephp).
+This project is based off Michael's [Magic Mirror simple PHP and JS script](https://github.com/MichMich/MagicMirror).
 
-## Installation
+## How to Contribute
 
-1. Download [Composer](http://getcomposer.org/doc/00-intro.md) or update `composer self-update`.
-2. Run `php composer.phar create-project --prefer-dist cakephp/app [app_name]`.
+1. Install [Composer](https://getcomposer.org/), you will need it to install all the dependencies.
+2. Clone this repo `git clone https://github.com/TheChillerCraft/ChromecastMagicMirror.git ChromecastMagicMirror`
+3. Download all the dependencies `composer update` in the ChromecastMagicMirror directory.
 
-If Composer is installed globally, run
-```bash
-composer create-project --prefer-dist cakephp/app [app_name]
-```
-
-You should now be able to visit the path to where you installed the app and see
-the setup traffic lights.
+When creating extensions to the Chromecast Magic Mirror project, please put all your code in `plugins/PluginName`.
+Then just push your `PluginName` folder to your git repo.
 
 ## Configuration
 
-Read and edit `config/app.php` and setup the 'Datasources' and any other
-configuration relevant for your application.
+Read and edit `config/app.default.php`, you are going to have to rename this file to `config/app.php` and add your MySQL database credentials to it.
+
+## Authors
+
+Connor Christie
+* https://github.com/TheChillerCraft
+
+Idea from: Michael Teeuw
+* https://github.com/MichMich
+* http://michaelteeuw.nl/
