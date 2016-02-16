@@ -24,6 +24,7 @@ class SettingsTable extends Table
      */
     public static function createSettingsTable($name)
     {
+        /*
         $t = new \Cake\Database\Schema\Table($name . '_settings');
 
         $t->addColumn('id', 'integer');
@@ -58,7 +59,8 @@ class SettingsTable extends Table
 
         $queries = $t->createSql($db);
         foreach ($queries as $sql) {
-            $db->execute($sql);
+            //$db->execute($sql);
         }
+        */
     }
 }
