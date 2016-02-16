@@ -11,7 +11,7 @@ This project is based off Michael's [Magic Mirror simple PHP and JS script](http
 
 1. Install [Composer](https://getcomposer.org/), you will need it to install all the dependencies.
 2. Clone this repo `git clone https://github.com/TheChillerCraft/ChromecastMagicMirror.git ChromecastMagicMirror`
-3. Download all the dependencies `composer update` in the ChromecastMagicMirror directory.
+3. Download all the dependencies `composer update` in the `ChromecastMagicMirror` directory.
 
 When creating extensions to the Chromecast Magic Mirror project, please put all your code in `plugins/PluginName`.
 Then just push your `PluginName` folder to your git repo.
