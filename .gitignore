@@ -2,4 +2,4 @@
 /config/app.php
 /tmp/*
 /logs/*
-.idea/*
+/.idea
