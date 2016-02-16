@@ -1,4 +1,6 @@
 <?php
+namespace App\Seeds;
+
 use Phinx\Seed\AbstractSeed;
 
 /**

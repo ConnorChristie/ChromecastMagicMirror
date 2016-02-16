@@ -8,6 +8,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/aura/intl" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/cakephp/bake" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/cakephp/cakephp" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/cakephp/cakephp-codesniffer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/cakephp/chronos" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/cakephp/debug_kit" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/cakephp/migrations" />
@@ -24,6 +25,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/psy/psysh" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/robmorgan/phinx" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/smarty/smarty" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/squizlabs/php_codesniffer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/config" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/console" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/filesystem" />
@@ -50,6 +52,7 @@
           <root url="file://$MODULE_DIR$/vendor/aura/intl" />
           <root url="file://$MODULE_DIR$/vendor/cakephp/bake" />
           <root url="file://$MODULE_DIR$/vendor/cakephp/cakephp" />
+          <root url="file://$MODULE_DIR$/vendor/cakephp/cakephp-codesniffer" />
           <root url="file://$MODULE_DIR$/vendor/cakephp/chronos" />
           <root url="file://$MODULE_DIR$/vendor/cakephp/debug_kit" />
           <root url="file://$MODULE_DIR$/vendor/cakephp/migrations" />
@@ -65,6 +68,7 @@
           <root url="file://$MODULE_DIR$/vendor/psr/log" />
           <root url="file://$MODULE_DIR$/vendor/psy/psysh" />
           <root url="file://$MODULE_DIR$/vendor/robmorgan/phinx" />
+          <root url="file://$MODULE_DIR$/vendor/squizlabs/php_codesniffer" />
           <root url="file://$MODULE_DIR$/vendor/symfony/config" />
           <root url="file://$MODULE_DIR$/vendor/symfony/console" />
           <root url="file://$MODULE_DIR$/vendor/symfony/filesystem" />
@@ -77,6 +81,7 @@
           <root url="file://$MODULE_DIR$/vendor/aura/intl" />
           <root url="file://$MODULE_DIR$/vendor/cakephp/bake" />
           <root url="file://$MODULE_DIR$/vendor/cakephp/cakephp" />
+          <root url="file://$MODULE_DIR$/vendor/cakephp/cakephp-codesniffer" />
           <root url="file://$MODULE_DIR$/vendor/cakephp/chronos" />
           <root url="file://$MODULE_DIR$/vendor/cakephp/debug_kit" />
           <root url="file://$MODULE_DIR$/vendor/cakephp/migrations" />
@@ -92,6 +97,7 @@
           <root url="file://$MODULE_DIR$/vendor/psr/log" />
           <root url="file://$MODULE_DIR$/vendor/psy/psysh" />
           <root url="file://$MODULE_DIR$/vendor/robmorgan/phinx" />
+          <root url="file://$MODULE_DIR$/vendor/squizlabs/php_codesniffer" />
           <root url="file://$MODULE_DIR$/vendor/symfony/config" />
           <root url="file://$MODULE_DIR$/vendor/symfony/console" />
           <root url="file://$MODULE_DIR$/vendor/symfony/filesystem" />

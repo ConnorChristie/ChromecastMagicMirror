@@ -1,8 +1,15 @@
 <?php
+namespace App\Migrations;
+
 use Migrations\AbstractMigration;
 
 class Initial extends AbstractMigration
 {
+    /**
+     * Migration initialize
+     *
+     * @return void
+     */
     public function up()
     {
         $table = $this->table('categories');
@@ -98,6 +105,11 @@ class Initial extends AbstractMigration
 
     }
 
+    /**
+     * Migration revert
+     *
+     * @return void
+     */
     public function down()
     {
         $this->table('setting_values')
