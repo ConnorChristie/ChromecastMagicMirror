@@ -43,7 +43,7 @@ class NavigationHelper extends HtmlHelper
             $itemOptions = $item;
 
             if (is_array($item)) {
-                $item = $key . $this->nestedList($item, $options, $itemOptions);
+                $key = $key . $this->nestedList($item, $options, $itemOptions);
             }
             if (isset($itemOptions['even']) && $index % 2 === 0) {
                 $itemOptions['class'] = $itemOptions['even'];

@@ -49,7 +49,6 @@ use Cake\Error\ErrorHandler;
 use Cake\Log\Log;
 use Cake\Mailer\Email;
 use Cake\Network\Request;
-use Cake\ORM\TableRegistry;
 use Cake\Routing\DispatcherFactory;
 use Cake\Utility\Security;
 

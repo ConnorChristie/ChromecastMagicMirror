@@ -25,8 +25,8 @@ header {
     font-size: 30px;
     height: 84px;
     line-height: 64px;
-    padding: 16px 0px;
-    box-shadow: 0px 1px rgba(0, 0, 0, 0.24);
+    padding: 16px 0;
+    box-shadow: 0 1px rgba(0, 0, 0, 0.24);
 }
 
 header .header-title {
@@ -44,7 +44,6 @@ legend {
 .actions.columns {
     margin-top:1rem;
     border-left: 5px solid #15848F;
-    padding-left: 15px;
     padding: 32px 20px;
 }
 
@@ -135,13 +134,13 @@ button {
 
 .form button:hover, .form button:focus {
     background: #7A6058;
-    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.26) !important;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.26) !important;
 }
 
 .form button[type="submit"] {
     float: right;
     text-transform: uppercase;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.26);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.26);
 }
 
 .form .error-message {
@@ -263,9 +262,9 @@ p.error {
 }
 
 pre {
-    background: none repeat scroll 0% 0% #FFF;
+    background: none repeat scroll 0 0 #FFF;
     box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.24);
-    margin: 15px 0px;
+    margin: 15px 0;
     color: rgba(0, 0 ,0 , 0.74);
     padding:5px;
 }
@@ -344,7 +343,7 @@ pre {
 }
 
 .home .checks .success:before, .home .checks .problem:before {
-    line-height: 0px;
+    line-height: 0;
     font-size: 28px;
     height: 12px;
     width: 12px;
@@ -377,7 +376,6 @@ pre {
 }
 
 .top-bar-section li:not(.has-form) a:not(.button):hover {
-    background-color: #308e97;
     background: #308e97;
 }
 
@@ -394,7 +392,7 @@ pre {
 }
 
 .index table {
-    margin-top: 0rem;
+    margin-top: 0;
     border: 0;
 }
 
@@ -475,7 +473,7 @@ div.message {
 }
 
 div.message:before {
-    line-height: 0px;
+    line-height: 0;
     font-size: 20px;
     height: 12px;
     width: 12px;
@@ -563,5 +561,5 @@ div.message.hidden {
     padding-bottom: 0.5rem;
     margin-top: 20px;
     margin-bottom: 10px;
-    border-bottom: 0px;
+    border-bottom: 0;
 }

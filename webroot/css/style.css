@@ -1,5 +1,5 @@
 .list-group {
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
 .list-group-item {
@@ -21,11 +21,11 @@
 }
 
 .collapse.in .navbar-nav, .collapsing .navbar-nav {
-    margin: 0px -15px;
+    margin: 0 -15px;
 }
 
 @media (min-width: 768px) {
     .navbar-right {
-        margin-right: 0px;
+        margin-right: 0;
     }
 }

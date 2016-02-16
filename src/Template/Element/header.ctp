@@ -15,7 +15,7 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <li class="navbar-right">
-                    <a href="#status"><strong>Status:</strong> <span id="chromecast_status" class="text-warning">Inactive</span></a>
+                    <a href="/status"><strong>Status:</strong> <span id="chromecast_status" class="text-warning">Inactive</span></a>
                 </li>
             </ul>
         </div>

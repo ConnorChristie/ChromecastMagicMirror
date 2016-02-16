@@ -1,8 +1,8 @@
 <?php
 namespace App\Controller\Component;
 
-use App\Controller\AppController;
 use Cake\Controller\Component;
+use Cake\Controller\Controller;
 
 class NavigationComponent extends Component
 {
@@ -40,10 +40,10 @@ class NavigationComponent extends Component
      * Checks if the tab is active
      *
      * @param  string        $name       The name of the tab to check
-     * @param  AppController $controller The current controller
+     * @param  Controller $controller The current controller
      * @return bool If the specified tab is active
      */
-    protected function _isActive($name, AppController $controller)
+    protected function _isActive($name, Controller $controller)
     {
         return strtolower($name) == strtolower($controller->name);
     }

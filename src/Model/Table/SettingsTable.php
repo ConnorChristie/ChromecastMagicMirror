@@ -1,7 +1,6 @@
 <?php
 namespace App\Model\Table;
 
-use Cake\Datasource\ConnectionManager;
 use Cake\ORM\Table;
 
 class SettingsTable extends Table
