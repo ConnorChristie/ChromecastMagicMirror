@@ -102,7 +102,6 @@ class Initial extends AbstractMigration
                 ]
             )
             ->update();
-
     }
 
     /**
