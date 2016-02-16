@@ -7,7 +7,7 @@ use Cake\ORM\Table;
 class SettingsTable extends Table
 {
     /**
-     * @param array $config
+     * @param array $config The config
      * @return void
      */
     public function initialize(array $config)
@@ -16,6 +16,12 @@ class SettingsTable extends Table
         $this->belongsTo('Categories');
     }
 
+    /**
+     * Creates a settings table
+     *
+     * @param $name The table name
+     * @return void
+     */
     public static function createSettingsTable($name)
     {
         $t = new \Cake\Database\Schema\Table($name . '_settings');
