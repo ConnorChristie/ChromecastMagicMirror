@@ -7,7 +7,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href=".">Magic Mirror</a>
+            <a class="navbar-brand" href="/"><?= __('Magic Mirror') ?></a>
         </div>
 
         <div class="navbar-collapse collapse">
@@ -15,7 +15,9 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <li class="navbar-right">
-                    <a href="/status"><strong>Status:</strong> <span id="chromecast_status" class="text-warning">Inactive</span></a>
+                    <a href="/status">
+                        <?= __('<strong>Status:</strong> {0}', ['<span id="chromecast_status" class="text-warning">' . __('Inactive') . '</span>']) ?>
+                    </a>
                 </li>
             </ul>
         </div>

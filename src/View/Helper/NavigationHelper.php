@@ -19,7 +19,7 @@ class NavigationHelper extends HtmlHelper
         foreach ($navItems as $navItem) {
             $activeCss = $navItem['active'] ? 'active' : '';
 
-            $items += [sprintf('<a href="%s">%s</a>', $navItem['href'], $navItem['title']) => ['class' => $activeCss]];
+            $items += [sprintf('<a href="%s">%s</a>', $navItem['href'], __($navItem['title'])) => ['class' => $activeCss]];
         }
 
         return $this->nestedList($items, ['class' => 'nav navbar-nav']);
@@ -42,9 +42,6 @@ class NavigationHelper extends HtmlHelper
         foreach ($items as $key => $item) {
             $itemOptions = $item;
 
-            if (is_array($item)) {
-                $key = $key . $this->nestedList($item, $options, $itemOptions);
-            }
             if (isset($itemOptions['even']) && $index % 2 === 0) {
                 $itemOptions['class'] = $itemOptions['even'];
             } elseif (isset($itemOptions['odd']) && $index % 2 !== 0) {

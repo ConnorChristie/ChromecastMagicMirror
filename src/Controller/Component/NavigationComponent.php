@@ -17,6 +17,17 @@ class NavigationComponent extends Component
     {
         $controller = $this->_registry->getController();
 
+        $this->addToController($controller);
+    }
+
+    /**
+     * Adds the tabs to the page before it renders
+     *
+     * @param Controller $controller
+     * @return void
+     */
+    public function addToController(Controller $controller)
+    {
         foreach (self::$_items as $key => $item) {
             self::$_items[$key]['active'] = $this->_isActive($item['title'], $controller);
         }

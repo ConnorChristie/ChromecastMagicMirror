@@ -1,0 +1,55 @@
+# Header
+msgid "Magic Mirror"
+msgstr "Magic Mirror"
+
+msgid "<strong>Status:</strong> {0}"
+msgstr "<strong>Status:</strong> {0}"
+
+msgid "Active"
+msgstr "Active"
+
+msgid "Inactive"
+msgstr "Inactive"
+
+# Settings tab
+msgid "Settings"
+msgstr "Settings"
+
+msgid "Magic Mirror Settings"
+msgstr "Magic Mirror Settings"
+
+# Language setting
+msgid "Language"
+msgstr "Language"
+
+# Rotation setting
+msgid "Rotation"
+msgstr "Rotation"
+
+msgid "Portrait"
+msgstr "Portrait"
+
+msgid "Landscape"
+msgstr "Landscape"
+
+# Time format setting
+msgid "Time Format"
+msgstr "Time Format"
+
+msgid "12 Hour"
+msgstr "12 Hour"
+
+msgid "24 Hour"
+msgstr "24 Hour"
+
+#Receiver IP setting
+msgid "Receiver IP"
+msgstr "Receiver IP"
+
+# Actions
+msgid "Save Settings"
+msgstr "Save Settings"
+
+# Help tab
+msgid "Help"
+msgstr "Help"
