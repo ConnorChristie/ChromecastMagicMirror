@@ -191,6 +191,7 @@ if (Configure::read('debug')) {
  */
 DispatcherFactory::add('Asset');
 DispatcherFactory::add('Routing');
+DispatcherFactory::add('LocaleSelector');
 DispatcherFactory::add('ControllerFactory');
 
 /**
@@ -208,5 +209,3 @@ Type::build('date')
 Type::build('datetime')
     ->useImmutable()
     ->useLocaleParser();
-
-\App\Model\Table\SettingsTable::createSettingsTable('todolist');

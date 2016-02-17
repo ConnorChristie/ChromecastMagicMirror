@@ -1,6 +1,5 @@
 <?php
-namespace App\Seeds;
-
+use Cake\ORM\TableRegistry;
 use Phinx\Seed\AbstractSeed;
 
 /**
@@ -8,6 +7,8 @@ use Phinx\Seed\AbstractSeed;
  */
 class SettingsSeed extends AbstractSeed
 {
+    private $_data = [];
+
     /**
      * Run Method.
      *
@@ -20,13 +21,73 @@ class SettingsSeed extends AbstractSeed
      */
     public function run()
     {
-        $data = [
-            [
-                'category_id' => 1
-            ]
-        ];
+        $category = $this->addCategory([
+            'name' => 'Magic Mirror Settings',
+            'panel_width' => 6
+        ]);
 
-        $table = $this->table('settings');
-        $table->insert($data)->save();
+        $this->addSetting($category, [
+            'name' => 'Language',
+            'required' => 1,
+            'default_value' => 'en',
+            'options' => ['en' => 'English', 'es' => 'Spanish']
+        ]);
+        $this->addSetting($category, [
+            'name' => 'Rotation',
+            'required' => 1,
+            'default_value' => 'portrait',
+            'options' => ['Portrait', 'Landscape']
+        ]);
+        $this->addSetting($category, [
+            'name' => 'Time Format',
+            'required' => 1,
+            'default_value' => '12',
+            'options' => ['12' => '12 Hour', '24' => '24 Hour']
+        ]);
+        $this->addSetting($category, [
+            'name' => 'Receiver IP',
+            'required' => 1,
+            'default_value' => 'sdf76dsf',
+            'options' => ['sdf76dsf' => '192.168.1.51', '87dsf87' => '10.1.1.51']
+        ]);
+
+        $categoriesTable = TableRegistry::get('Categories');
+
+        foreach ($this->_data as $data) {
+            $category = $categoriesTable->newEntity($data, ['associated' => ['Settings']]);
+            $categoriesTable->save($category);
+        }
+    }
+
+    /**
+     * Creates a category with the specified properties
+     *
+     * @param array $properties
+     * @return mixed
+     */
+    public function addCategory($properties)
+    {
+        $this->_data[] = $properties;
+        $keys = array_keys($this->_data);
+
+        return end($keys);
+    }
+
+    /**
+     * Creates a setting with the specified category id and properties
+     *
+     * @param int $category_id
+     * @param array $properties
+     * @return void
+     */
+    public function addSetting($category_id, $properties)
+    {
+        foreach ($properties as $key => $property) {
+            if ($key == 'options' && is_array($property)) {
+                $properties[$key] = serialize($property);
+            }
+        }
+
+        $this->_data[$category_id]['settings'][] = $properties;
     }
 }
