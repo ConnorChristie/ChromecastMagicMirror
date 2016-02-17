@@ -23,7 +23,7 @@ class NavigationComponent extends Component
     /**
      * Adds the tabs to the page before it renders
      *
-     * @param Controller $controller
+     * @param Controller $controller The controller
      * @return void
      */
     public function addToController(Controller $controller)

@@ -7,7 +7,14 @@ class SettingsHelper extends Helper
 {
     public $helpers = ['Form'];
 
-    public function inputs($category_id, array $settings)
+    /**
+     * Creates all the inputs for the specified settings
+     *
+     * @param int $categoryId The current category it
+     * @param array $settings The settings for that category
+     * @return string
+     */
+    public function inputs($categoryId, array $settings)
     {
         $html = '';
 
@@ -27,7 +34,7 @@ class SettingsHelper extends Helper
                 }
             }
 
-            $html .= $this->Form->input($category_id . '.settings.' . $setting->id . '.setting_value.value', $inputOptions);
+            $html .= $this->Form->input($categoryId . '.settings.' . $setting->id . '.setting_value.value', $inputOptions);
         }
 
         return $html;
