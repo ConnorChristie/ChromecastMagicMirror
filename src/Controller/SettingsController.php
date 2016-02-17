@@ -16,7 +16,7 @@ class SettingsController extends AppController
     {
         $categoriesTable = TableRegistry::get('Categories');
 
-        $categories = $categoriesTable->find('all')->contain(['Settings' => ['SettingValues']])->all()->toArray();
+        $categories = $categoriesTable->find('all')->orderAsc('panel_row, panel_column')->contain(['Settings' => ['SettingValues']])->all()->toArray();
         $categories = Hash::combine($categories, '{n}.id', '{n}');
 
         foreach ($categories as $category) {

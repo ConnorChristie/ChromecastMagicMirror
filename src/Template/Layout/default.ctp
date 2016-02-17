@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <title>
-            <?= __('Magic Mirror') . ' - ' . $this->fetch('title') ?>
+            <?= __('{0} Magic Mirror', ['']) . ' - ' . $this->fetch('title') ?>
         </title>
 
         <?= $this->element('includes') ?>
@@ -20,6 +20,8 @@
             <?= $this->Flash->render() ?>
 
             <?= $this->fetch('content') ?>
+
+            <?= $this->element('footer') ?>
         </div>
 
         <?= $this->fetch('scripts') ?>

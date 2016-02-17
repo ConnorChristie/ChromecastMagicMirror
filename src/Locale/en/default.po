@@ -1,6 +1,6 @@
 # Header
-msgid "Magic Mirror"
-msgstr "Magic Mirror"
+msgid "{0} Magic Mirror"
+msgstr "{0} Magic Mirror"
 
 msgid "<strong>Status:</strong> {0}"
 msgstr "<strong>Status:</strong> {0}"
@@ -47,9 +47,25 @@ msgid "Receiver IP"
 msgstr "Receiver IP"
 
 # Actions
+msgid "Actions"
+msgstr "Actions"
+
 msgid "Save Settings"
 msgstr "Save Settings"
+
+msgid "Automatically refresh {0}"
+msgstr "Automatically refresh {0}"
+
+msgid "Reload from Config"
+msgstr "Reload from Config"
+
+msgid "Use this if you have modified the config manually"
+msgstr "Use this if you have modified the config manually"
 
 # Help tab
 msgid "Help"
 msgstr "Help"
+
+# Footer
+msgid "Back to top"
+msgstr "Back to top"

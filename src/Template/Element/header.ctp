@@ -7,7 +7,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/"><?= __('Magic Mirror') ?></a>
+            <a class="navbar-brand" href="/"><?= __('{0} Magic Mirror', ['']) ?></a>
         </div>
 
         <div class="navbar-collapse collapse">
