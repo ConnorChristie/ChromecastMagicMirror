@@ -44,7 +44,7 @@
                         </div>
                     </div>
 
-                    <?= $this->Form->input('auto_refresh', ['type' => 'checkbox', 'label' => __('Automatically refresh {0}', [__('{0} Magic Mirror', ['Chromecast'])])]) ?>
+                    <?= $this->Form->input('auto_refresh', ['type' => 'checkbox', 'label' => __('Automatically refresh {0}', [__('{0} Magic Mirror', ['Chromecast'])]), 'default' => 1]) ?>
                 </div>
             </div>
         </div>

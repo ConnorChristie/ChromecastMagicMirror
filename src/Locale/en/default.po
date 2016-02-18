@@ -1,71 +1,170 @@
 # Header
 msgid "{0} Magic Mirror"
-msgstr "{0} Magic Mirror"
+msgstr ""
 
 msgid "<strong>Status:</strong> {0}"
-msgstr "<strong>Status:</strong> {0}"
+msgstr ""
 
 msgid "Active"
-msgstr "Active"
+msgstr ""
 
 msgid "Inactive"
-msgstr "Inactive"
+msgstr ""
 
 # Settings tab
 msgid "Settings"
-msgstr "Settings"
+msgstr ""
 
 msgid "Magic Mirror Settings"
-msgstr "Magic Mirror Settings"
+msgstr ""
 
 # Language setting
 msgid "Language"
-msgstr "Language"
+msgstr ""
 
 # Rotation setting
 msgid "Rotation"
-msgstr "Rotation"
+msgstr ""
 
 msgid "Portrait"
-msgstr "Portrait"
+msgstr ""
 
 msgid "Landscape"
-msgstr "Landscape"
+msgstr ""
 
 # Time format setting
 msgid "Time Format"
-msgstr "Time Format"
+msgstr ""
 
 msgid "12 Hour"
-msgstr "12 Hour"
+msgstr ""
 
 msgid "24 Hour"
-msgstr "24 Hour"
+msgstr ""
 
 #Receiver IP setting
 msgid "Receiver IP"
-msgstr "Receiver IP"
+msgstr ""
 
 # Actions
 msgid "Actions"
-msgstr "Actions"
+msgstr ""
 
 msgid "Save Settings"
-msgstr "Save Settings"
+msgstr ""
 
 msgid "Automatically refresh {0}"
-msgstr "Automatically refresh {0}"
+msgstr ""
 
 msgid "Reload from Config"
-msgstr "Reload from Config"
+msgstr ""
 
 msgid "Use this if you have modified the config manually"
-msgstr "Use this if you have modified the config manually"
+msgstr ""
+
+msgid "If your Magic Mirror is currently running, it should automatically refresh very soon!"
+msgstr ""
+
+msgid "Successfully updated the settings!"
+msgstr ""
+
+msgid "Unable to save your settings, are you connected to your database?"
+msgstr ""
 
 # Help tab
 msgid "Help"
-msgstr "Help"
+msgstr ""
+
+msgid "Magic Mirror Setup"
+msgstr ""
+
+msgid "1. Edit the config settings to your liking"
+msgstr ""
+
+msgid "2. You can choose to have the receiver automatically update since the receiver is in the cloud and everyone shares the same version"
+msgstr ""
+
+msgid "3. If you are already casting to your Chromecast then you can have the Chromecast auto refresh when you save your changes"
+msgstr ""
+
+msgid "4. If you choose that then your Chromecast will automatically refresh and apply your changes"
+msgstr ""
+
+msgid "5. Once you save your changes, they will be stored in config.json in case you wish to modify them manually"
+msgstr ""
+
+msgid "Chromecast Setup"
+msgstr ""
+
+msgid "1. Plug your Chromecast into your monitor"
+msgstr ""
+
+msgid "2. Connect your Chromecast to the internet"
+msgstr ""
+
+msgid "3. Navigate to your local sender installation in a chrome browser"
+msgstr ""
+
+msgid "4. Change any of the config settings to better suit you"
+msgstr ""
+
+msgid "5. Save the changes and then cast the page"
+msgstr ""
+
+msgid "6. You should see the Magic Mirror interface on your Chromecast"
+msgstr ""
+
+msgid "Webserver Setup for a Local Receiver"
+msgstr ""
+
+msgid "1. You should already have an Apache and PHP server set up"
+msgstr ""
+
+msgid "2. Copy the receiver directory to the root of your www directory"
+msgstr ""
+
+msgid "3. Change your host computer to use one of the following static IP's:"
+msgstr ""
+
+msgid "4. In the general settings, make sure you choose the correct IP you are using"
+msgstr ""
+
+msgid "5. Make sure you refresh the settings tab before trying to cast to a new receiver"
+msgstr ""
+
+msgid "Troubleshooting"
+msgstr ""
+
+msgid "My changes are not being applied"
+msgstr ""
+
+msgid "Make sure PHP has permission to write to the config.json file"
+msgstr ""
+
+msgid "It is not casting the application, only the tab"
+msgstr ""
+
+msgid "Make sure you have selected the proper receiver IP for your local network"
+msgstr ""
+
+msgid "Make sure you have set up the receiver correctly on the chosen IP"
+msgstr ""
+
+msgid "Make sure you can access the local IP chosen from another computer on your network"
+msgstr ""
+
+msgid "Try restarting your Chromecast by unplugging and plugging it back in"
+msgstr ""
+
+msgid "Chrome is unable to cast to my device"
+msgstr ""
+
+msgid "Make sure your Chromecast is connected to the internet and not just your local network"
+msgstr ""
+
+msgid "There might have been a bad receiver update, this will be fixed automatically"
+msgstr ""
 
 # Footer
 msgid "Back to top"
-msgstr "Back to top"
+msgstr ""

@@ -34,6 +34,10 @@ class SettingsHelper extends Helper
                 }
             }
 
+            $hiddenOptions = ['name' => 'settings[' . $setting->id . '][id]'];
+            $inputOptions['name'] = 'settings[' . $setting->id . '][value]';
+
+            $html .= $this->Form->hidden($categoryId . '.settings.' . $setting->id . '.setting_value.id', $hiddenOptions);
             $html .= $this->Form->input($categoryId . '.settings.' . $setting->id . '.setting_value.value', $inputOptions);
         }
 
