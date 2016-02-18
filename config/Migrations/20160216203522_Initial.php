@@ -17,6 +17,11 @@ class Initial extends AbstractMigration
                 'limit' => 255,
                 'null' => false,
             ])
+            ->addColumn('enabled', 'boolean', [
+                'default' => 0,
+                'limit' => null,
+                'null' => true,
+            ])
             ->addColumn('panel_width', 'integer', [
                 'default' => 6,
                 'limit' => 11,
