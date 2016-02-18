@@ -1,6 +1,4 @@
 <?php
-namespace App\Migrations;
-
 use Migrations\AbstractMigration;
 
 class Initial extends AbstractMigration
@@ -21,6 +19,16 @@ class Initial extends AbstractMigration
             ])
             ->addColumn('panel_width', 'integer', [
                 'default' => 6,
+                'limit' => 11,
+                'null' => false,
+            ])
+            ->addColumn('panel_row', 'integer', [
+                'default' => 0,
+                'limit' => 11,
+                'null' => false,
+            ])
+            ->addColumn('panel_column', 'integer', [
+                'default' => 0,
                 'limit' => 11,
                 'null' => false,
             ])
