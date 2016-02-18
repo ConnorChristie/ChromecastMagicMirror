@@ -48,11 +48,11 @@ class SettingsHelper extends Helper
     /**
      * Creates the enable/disable switch
      *
-     * @param integer $category_id The category ID
-     * @param boolean $enabled If this category is enabled
+     * @param int $categoryId The category ID
+     * @param bool $enabled If this category is enabled
      * @return string The HTML for the switch
      */
-    public function enableDisableSwitch($category_id, $enabled)
+    public function enableDisableSwitch($categoryId, $enabled)
     {
         $yesClasses = $enabled ? ' btn-success active' : ' btn-warning';
         $noClasses = !$enabled ? ' btn-warning active' : ' btn-success';
@@ -62,7 +62,7 @@ class SettingsHelper extends Helper
 
         $yesInput = $this->Html->tag('input', '', [
             'type' => 'radio',
-            'name' => 'categories[' . $category_id . '][enabled]',
+            'name' => 'categories[' . $categoryId . '][enabled]',
             'value' => 1,
             'autocomplete' => 'off',
             $yesChecked
@@ -70,7 +70,7 @@ class SettingsHelper extends Helper
 
         $noInput = $this->Html->tag('input', '', [
             'type' => 'radio',
-            'name' => 'categories[' . $category_id . '][enabled]',
+            'name' => 'categories[' . $categoryId . '][enabled]',
             'value' => 0,
             'autocomplete' => 'off',
             $noChecked
