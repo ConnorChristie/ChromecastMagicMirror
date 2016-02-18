@@ -7,3 +7,4 @@
 
 <?= $this->Html->script('jquery.min.js', ['block' => 'scripts']) ?>
 <?= $this->Html->script('bootstrap.min.js', ['block' => 'scripts']) ?>
+<?= $this->Html->script('main.js', ['block' => 'scripts']) ?>

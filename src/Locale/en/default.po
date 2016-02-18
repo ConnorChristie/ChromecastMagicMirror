@@ -18,6 +18,12 @@ msgstr ""
 msgid "Magic Mirror Settings"
 msgstr ""
 
+msgid "Enabled"
+msgstr ""
+
+msgid "Disabled"
+msgstr ""
+
 # Language setting
 msgid "Language"
 msgstr ""

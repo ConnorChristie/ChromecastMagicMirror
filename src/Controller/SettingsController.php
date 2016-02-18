@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\Model\Entity\Category;
 use App\Model\Entity\SettingValue;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
@@ -30,20 +31,33 @@ class SettingsController extends AppController
     {
         if ($this->request->is('PUT')) {
             $data = $this->request->data;
+
+            $categoriesTable = TableRegistry::get('Categories');
             $settingValuesTable = TableRegistry::get('SettingValues');
 
-            $success = $this->_saveSettingValues($data, $settingValuesTable);
+            $success = true;
+
+            foreach ($data['categories'] as $id => $category) {
+                $model = new Category([
+                    'id' => $id,
+                    'enabled' => $category['enabled']
+                ]);
+
+                $success = $categoriesTable->save($model);
+            }
+
+            $success = $success && $this->_saveSettingValues($data, $settingValuesTable);
 
             if ($success) {
-                $reload_message = '';
+                $reloadMessage = '';
 
                 if ($data['auto_refresh']) {
                     $this->_refreshChromecast();
 
-                    $reload_message = ' ' . __('If your Magic Mirror is currently running, it should automatically refresh very soon!');
+                    $reloadMessage = ' ' . __('If your Magic Mirror is currently running, it should automatically refresh very soon!');
                 }
 
-                $this->Flash->success(__('Successfully updated the settings!') . $reload_message);
+                $this->Flash->success(__('Successfully updated the settings!') . $reloadMessage);
             } else {
                 $this->Flash->error(__('Unable to save your settings, are you connected to your database?'));
             }
@@ -63,8 +77,7 @@ class SettingsController extends AppController
         $categories = $categoriesTable->find('all')->orderAsc('panel_row, panel_column')->contain(['Settings' => ['SettingValues']])->all()->toArray();
         $categories = Hash::combine($categories, '{n}.id', '{n}');
 
-        foreach ($categories as $category)
-        {
+        foreach ($categories as $category) {
             $category->settings = Hash::combine(Hash::sort($category->settings, '{n}.id', 'asc'), '{n}.id', '{n}');
         }
         return $categories;
@@ -81,16 +94,14 @@ class SettingsController extends AppController
     {
         $success = true;
 
-        foreach ($data['settings'] as $setting_id => $setting)
-        {
+        foreach ($data['settings'] as $settingId => $setting) {
             $model = new SettingValue([
                 'id' => $setting['id'],
-                'setting_id' => $setting_id,
+                'setting_id' => $settingId,
                 'value' => $setting['value']
             ]);
 
-            if (!$settingValuesTable->save($model))
-            {
+            if (!$settingValuesTable->save($model)) {
                 $success = false;
             }
         }
@@ -104,6 +115,6 @@ class SettingsController extends AppController
      */
     protected function _refreshChromecast()
     {
-        // Todo: Refresh Chromecast
+        // Refresh Chromecast
     }
 }

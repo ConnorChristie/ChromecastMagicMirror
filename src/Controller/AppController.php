@@ -22,6 +22,9 @@ class AppController extends Controller
         'Form' => [
             'className' => 'Bootstrap.BootstrapForm'
         ],
+        'Flash' => [
+            'className' => 'Bootstrap.BootstrapFlash'
+        ],
         'Paginator' => [
             'className' => 'Bootstrap.BootstrapPaginator'
         ],

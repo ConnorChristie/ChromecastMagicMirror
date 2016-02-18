@@ -20,6 +20,10 @@
     color: red;
 }
 
+.panel-category {
+    padding-top: 4px;
+}
+
 .collapse.in .navbar-nav, .collapsing .navbar-nav {
     margin: 0 -15px;
 }
