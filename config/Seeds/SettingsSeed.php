@@ -1,4 +1,5 @@
 <?php
+use App\Locale\Languages;
 use Cake\ORM\TableRegistry;
 use Phinx\Seed\AbstractSeed;
 
@@ -23,32 +24,44 @@ class SettingsSeed extends AbstractSeed
     {
         $category = $this->addCategory([
             'name' => 'Magic Mirror Settings',
-            'panel_width' => 6
+            'panel_width' => 6,
+            'panel_row' => 0,
+            'panel_column' => 0
         ]);
 
         $this->addSetting($category, [
             'name' => 'Language',
             'required' => 1,
             'default_value' => 'en',
-            'options' => ['en' => 'English', 'es' => 'Spanish']
+            'options' => Languages::$languages
         ]);
         $this->addSetting($category, [
             'name' => 'Rotation',
             'required' => 1,
             'default_value' => 'portrait',
-            'options' => ['Portrait', 'Landscape']
+            'options' => [
+                'Portrait',
+                'Landscape'
+            ]
         ]);
         $this->addSetting($category, [
             'name' => 'Time Format',
             'required' => 1,
             'default_value' => '12',
-            'options' => ['12' => '12 Hour', '24' => '24 Hour']
+            'options' => [
+                '12' => '12 Hour',
+                '24' => '24 Hour'
+            ]
         ]);
         $this->addSetting($category, [
             'name' => 'Receiver IP',
             'required' => 1,
-            'default_value' => 'sdf76dsf',
-            'options' => ['sdf76dsf' => '192.168.1.51', '87dsf87' => '10.1.1.51']
+            'default_value' => '5FD69FDB',
+            'options' => [
+                '5FD69FDB' => '192.168.1.51',
+                'C8BB9A98' => '10.5.5.51',
+                '9DC72911' => '172.16.1.51'
+            ]
         ]);
 
         $categoriesTable = TableRegistry::get('Categories');
