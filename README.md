@@ -12,6 +12,8 @@ This project is based off Michael's [Magic Mirror simple PHP and JS script](http
 1. Install [Composer](https://getcomposer.org/), you will need it to install all the dependencies.
 2. Clone this repo `git clone https://github.com/TheChillerCraft/ChromecastMagicMirror.git ChromecastMagicMirror`
 3. Download all the dependencies `composer install` in the `ChromecastMagicMirror` directory.
+4. Setup a MYSQL database and change your `config/app.php` default database settings to connect to it.
+5. Run the commands: `bin/cake migrations migrate` and `bin/cake migrations seed` to initialize the databases.
 
 When creating extensions to the Chromecast Magic Mirror project, please put all your code in `plugins/PluginName`.
 Then just push your `PluginName` folder to your git repo.
