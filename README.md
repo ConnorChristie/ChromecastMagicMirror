@@ -25,7 +25,7 @@ Read and edit `config/app.default.php`, you are going to have to rename this fil
 ## Authors
 
 Connor Christie
-* https://github.com/TheChillerCraft
+* https://github.com/ConnorChristie
 
 Idea from: Michael Teeuw
 * https://github.com/MichMich
