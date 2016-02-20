@@ -2,9 +2,13 @@
 
 <!-- The block is where the element gets included, styles or scripts -->
 
-<?= $this->Html->css('bootstrap-flatly.min.css', ['block' => 'styles']) ?>
-<?= $this->Html->css('style.css', ['block' => 'styles']) ?>
+<?= $this->Html->css('bootstrap-flatly.min', ['block' => true]) ?>
+<?= $this->Html->css('style', ['block' => true]) ?>
 
-<?= $this->Html->script('jquery.min.js', ['block' => 'scripts']) ?>
-<?= $this->Html->script('bootstrap.min.js', ['block' => 'scripts']) ?>
-<?= $this->Html->script('main.js', ['block' => 'scripts']) ?>
+<!-- Dependencies -->
+<?= $this->Html->script('libs/jquery.min', ['block' => true]) ?>
+<?= $this->Html->script('libs/bootstrap.min', ['block' => true]) ?>
+<?= $this->Html->script('//www.gstatic.com/cv/js/sender/v1/cast_sender.js', ['block' => true]) ?>
+
+<!-- Extensions -->
+<?= $this->Html->script('chromecast', ['block' => true]) ?>

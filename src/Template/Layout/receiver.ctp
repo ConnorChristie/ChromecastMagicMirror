@@ -8,23 +8,18 @@
             <?= __('{0} Magic Mirror', ['']) . ' - ' . $this->fetch('title') ?>
         </title>
 
-        <?= $this->element('includes') ?>
+        <?= $this->element('Receiver/includes') ?>
 
         <?= $this->fetch('meta') ?>
         <?= $this->fetch('css') ?>
     </head>
     <body>
-        <?= $this->element('header') ?>
-
-        <div class="container">
-            <?= $this->Flash->render() ?>
-
-            <?= $this->fetch('content') ?>
-
-            <?= $this->element('footer') ?>
-        </div>
+        <?= $this->fetch('content') ?>
 
         <?= $this->fetch('script') ?>
-        <?= $this->Html->script('main') ?>
+
+        <?= $this->Html->script('receiver/chromecast') ?>
+        <?= $this->fetch('script-after') ?>
+        <?= $this->Html->script('receiver/main') ?>
     </body>
 </html>

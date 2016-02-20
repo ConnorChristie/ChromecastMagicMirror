@@ -11,8 +11,8 @@ class SettingsTable extends Table
      */
     public function initialize(array $config)
     {
-        $this->hasOne('SettingValues');
         $this->belongsTo('Categories');
+        $this->hasOne('SettingValues');
     }
 
     /**

@@ -68,6 +68,10 @@ Router::scope('/', function ($routes) {
     $routes->fallbacks('DashedRoute');
 });
 
+Router::scope('/api', function ($routes) {
+    $routes->resources('Config');
+});
+
 NavigationComponent::addTab('Settings', '/');
 NavigationComponent::addTab('Help', '/help');
 

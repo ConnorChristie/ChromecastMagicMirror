@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
-class HelpController extends AppController
+use App\Controller\BaseController\NavigationController;
+
+class HelpController extends NavigationController
 {
     /**
      * Renders the help page

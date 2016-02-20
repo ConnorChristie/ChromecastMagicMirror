@@ -1,13 +1,14 @@
 <?php
 namespace App\Controller;
 
+use App\Controller\BaseController\NavigationController;
 use App\Model\Entity\Category;
 use App\Model\Entity\SettingValue;
 use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Hash;
 
-class SettingsController extends AppController
+class SettingsController extends NavigationController
 {
     /**
      * Renders the settings index
@@ -72,14 +73,21 @@ class SettingsController extends AppController
      * @param Table $categoriesTable The categories database table
      * @return array The categories and all their settings
      */
-    protected function _getCategories($categoriesTable)
+    protected function _getCategories(Table $categoriesTable)
     {
-        $categories = $categoriesTable->find('all')->orderAsc('panel_row, panel_column')->contain(['Settings' => ['SettingValues']])->all()->toArray();
+        $categories = $categoriesTable
+            ->find('all')
+            ->orderAsc('panel_row, panel_column')
+            ->contain(['Settings' => ['SettingValues']])
+            ->all()
+            ->toArray();
+
         $categories = Hash::combine($categories, '{n}.id', '{n}');
 
         foreach ($categories as $category) {
             $category->settings = Hash::combine(Hash::sort($category->settings, '{n}.id', 'asc'), '{n}.id', '{n}');
         }
+
         return $categories;
     }
 

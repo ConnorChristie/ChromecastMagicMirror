@@ -1,3 +1,5 @@
+Chromecast.main();
+
 $('.category-switch input[type="radio"]').change(function()
 {
     var button = $(this).parent().parent().find('.btn');
