@@ -24,6 +24,8 @@ class SettingsSeed extends AbstractSeed
     {
         $category = $this->addCategory([
             'name' => 'Magic Mirror Settings',
+            'short_name' => 'magic_mirror',
+            'enabled' => true,
             'panel_width' => 6,
             'panel_row' => 0,
             'panel_column' => 0
@@ -31,12 +33,14 @@ class SettingsSeed extends AbstractSeed
 
         $this->addSetting($category, [
             'name' => 'Language',
+            'short_name' => 'language',
             'required' => 1,
             'default_value' => 'en',
             'options' => Languages::$languages
         ]);
         $this->addSetting($category, [
             'name' => 'Rotation',
+            'short_name' => 'rotation',
             'required' => 1,
             'default_value' => 'portrait',
             'options' => [
@@ -46,6 +50,7 @@ class SettingsSeed extends AbstractSeed
         ]);
         $this->addSetting($category, [
             'name' => 'Time Format',
+            'short_name' => 'time_format',
             'required' => 1,
             'default_value' => '12',
             'options' => [
@@ -55,6 +60,7 @@ class SettingsSeed extends AbstractSeed
         ]);
         $this->addSetting($category, [
             'name' => 'Receiver IP',
+            'short_name' => 'app_id',
             'required' => 1,
             'default_value' => '5FD69FDB',
             'options' => [
@@ -62,6 +68,35 @@ class SettingsSeed extends AbstractSeed
                 'C8BB9A98' => '10.5.5.51',
                 '9DC72911' => '172.16.1.51'
             ]
+        ]);
+
+        $category = $this->addCategory([
+            'name' => 'Weather Settings',
+            'short_name' => 'weather',
+            'enabled' => true,
+            'panel_width' => 6,
+            'panel_row' => 0,
+            'panel_column' => 1
+        ]);
+
+        $this->addSetting($category, [
+            'name' => 'Zip Code',
+            'short_name' => 'zip_code',
+            'required' => 1,
+            'default_value' => ''
+        ]);
+        $this->addSetting($category, [
+            'name' => 'Units',
+            'short_name' => 'units',
+            'required' => 1,
+            'default_value' => 'imperial',
+            'options' => ['imperial', 'celsius']
+        ]);
+        $this->addSetting($category, [
+            'name' => 'Open Weather Map API Key',
+            'short_name' => 'api_key',
+            'required' => 1,
+            'default_value' => ''
         ]);
 
         $categoriesTable = TableRegistry::get('Categories');

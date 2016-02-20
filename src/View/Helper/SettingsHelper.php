@@ -2,7 +2,6 @@
 namespace App\View\Helper;
 
 use Cake\View\Helper;
-use Cake\View\Helper\HtmlHelper;
 
 class SettingsHelper extends Helper
 {
