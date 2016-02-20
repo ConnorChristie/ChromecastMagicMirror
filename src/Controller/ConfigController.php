@@ -32,10 +32,10 @@ class ConfigController extends APIController
     {
         $categories = $categoriesTable
             ->find('all', [
-                'fields' => ['Categories.id', 'Categories.name', 'Categories.enabled'],
+                'fields' => ['Categories.id', 'Categories.short_name', 'Categories.enabled'],
                 'contain' => [
                     'Settings' => [
-                        'fields' => ['Settings.name', 'Settings.category_id', 'Settings.default_value'],
+                        'fields' => ['Settings.short_name', 'Settings.category_id', 'Settings.default_value'],
                         'SettingValues' => [
                             'fields' => ['SettingValues.value']
                         ]
@@ -46,10 +46,10 @@ class ConfigController extends APIController
             ->all()
             ->toArray();
 
-        $categories = Hash::combine($categories, '{n}.name', '{n}');
+        $categories = Hash::combine($categories, '{n}.short_name', '{n}');
 
         foreach ($categories as $category) {
-            $category->settings = Hash::combine($category->settings, '{n}.name', '{n}');
+            $category->settings = Hash::combine($category->settings, '{n}.short_name', '{n}');
         }
 
         return $categories;

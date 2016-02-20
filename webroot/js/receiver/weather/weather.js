@@ -1,18 +1,19 @@
-var Weather = {
+var weather = {
+    name: 'Weather',
+    categoryName: 'weather',
+
     temperatureLocation : '.temp',
     windSunLocation : '.windsun',
     forecastLocation : '.forecast',
     locationLocation : '.location',
 
-    languageSetting: 'Magic Mirror Settings|Language',
-    languageValue: 'en',
-
-    zipCodeSetting: 'Weather Settings|Zip Code',
-    unitsSetting: 'Weather Settings|Units',
-    appIdSetting: 'Weather Settings|Open Weather Map API Key',
+    languageSetting: 'magic_mirror|language',
+    zipCodeSetting: 'weather|zip_code',
+    unitsSetting: 'weather|units',
+    appIdSetting: 'weather|api_key',
 
     params: {
-        zip: 0, units: 'imperial', APPID: ''
+        zip: 0, units: 'imperial', APPID: '', lang: 'en'
     },
 
     apiBase: 'http://api.openweathermap.org/data',
@@ -20,7 +21,7 @@ var Weather = {
     weatherEndpoint: 'weather',
     forecastEndpoint: 'forecast/daily',
 
-    updateInterval: 6000,
+    updateInterval: 30000,
     fadeInterval: 1000,
 
     iconTable:
@@ -46,15 +47,14 @@ var Weather = {
     }
 };
 
-Weather.initialize = function ()
+weather.initialize = function ()
 {
-    this.languageValue = Chromecast.tryGetSetting(this.languageSetting) || this.languageValue;
+    this.params.zip = chromecast.tryGetSetting(this.zipCodeSetting) || this.params.zip;
+    this.params.units = chromecast.tryGetSetting(this.unitsSetting) || this.params.units;
+    this.params.APPID = chromecast.tryGetSetting(this.appIdSetting) || this.params.APPID;
+    this.params.lang = chromecast.tryGetSetting(this.languageSetting) || this.params.lang;
 
-    this.params.zip = Chromecast.tryGetSetting(this.zipCodeSetting) || this.params.zip;
-    this.params.units = Chromecast.tryGetSetting(this.unitsSetting) || this.params.units;
-    this.params.APPID = Chromecast.tryGetSetting(this.appIdSetting) || this.params.APPID;
-
-    if (Time.timeFormatValue == 12)
+    if (time.timeFormatValue == 12)
     {
         this._timeFormat = 'h'
     } else
@@ -62,14 +62,20 @@ Weather.initialize = function ()
         this._timeFormat = 'HH';
     }
 
-    this.intervalId = setInterval(function ()
-    {
-        Weather.updateCurrentWeather();
-        Weather.updateWeatherForecast();
-    }, this.updateInterval);
+    this.update();
+
+    this.intervalId = setInterval(this.update.bind(this), this.updateInterval);
 };
 
-Weather.updateCurrentWeather = function ()
+weather.update = function ()
+{
+    this.updateCurrentWeather();
+
+    // They don't like getting two API calls at nearly the same time
+    setTimeout(this.updateWeatherForecast.bind(this), 500);
+};
+
+weather.updateCurrentWeather = function ()
 {
     $.getJSON(this.apiBase + '/' + this.apiVersion + '/' + this.weatherEndpoint, this.params, function (data)
     {
@@ -101,7 +107,7 @@ Weather.updateCurrentWeather = function ()
     }.bind(this));
 };
 
-Weather.updateWeatherForecast = function()
+weather.updateWeatherForecast = function()
 {
     $.getJSON(this.apiBase + '/' + this.apiVersion + '/' + this.forecastEndpoint, this.params, function (data)
     {
@@ -142,12 +148,12 @@ Weather.updateWeatherForecast = function()
     }.bind(this));
 };
 
-Weather.roundValue = function(temperature)
+weather.roundValue = function(temperature)
 {
     return parseFloat(temperature).toFixed(0);
 };
 
-Weather.ms2Beaufort = function(ms)
+weather.ms2Beaufort = function(ms)
 {
     var kmh = ms * 60 * 60 / 1000;
     var speeds = [ 1, 5, 11, 19, 28, 38, 49, 61, 74, 88, 102, 117, 1000 ];
@@ -165,9 +171,9 @@ Weather.ms2Beaufort = function(ms)
     return 12;
 };
 
-Weather.shutdown = function ()
+weather.shutdown = function ()
 {
     clearInterval(this.intervalId);
 };
 
-Chromecast.addExtension(Weather);
+chromecast.addExtension(weather);

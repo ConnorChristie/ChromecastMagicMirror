@@ -12,4 +12,4 @@ jQuery.fn.updateWithText = function(text, speed)
     }
 };
 
-Chromecast.initialize();
+chromecast.initialize();

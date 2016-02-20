@@ -1,4 +1,4 @@
-var Chromecast = {
+var chromecast = {
     readyStatus: 'Magic Mirror is currently running',
     namespace: 'urn:x-cast:me.connor.magicmirror',
     initialized: false,
@@ -6,8 +6,9 @@ var Chromecast = {
     config: []
 };
 
-Chromecast.initialize = function ()
+chromecast.initialize = function ()
 {
+    /*
     cast.receiver.logger.setLevelValue(0);
     window.castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
     console.log('Starting Receiver Manager');
@@ -18,16 +19,16 @@ Chromecast.initialize = function ()
     {
 
     };
-
+*/
     $.getJSON('/api/config', function (config)
     {
-        Chromecast.config = config;
-        Chromecast.initialized = true;
+        chromecast.config = config;
+        chromecast.initialized = true;
 
         //console.log('Received Ready event: ' + JSON.stringify(event.data));
         //window.castReceiverManager.setApplicationState(Chromecast.readyStatus);
 
-        Chromecast.initializeExtensions();
+        chromecast.initializeExtensions();
     });
 
     castReceiverManager.start({
@@ -35,20 +36,42 @@ Chromecast.initialize = function ()
     });
 };
 
-Chromecast.initializeExtensions = function ()
+chromecast.initializeExtensions = function ()
 {
-    Chromecast.extensions.forEach(function (extension)
+    chromecast.extensions.forEach(function (extension)
     {
-        extension.initialize();
+        if (chromecast.isEnabled(extension.categoryName))
+        {
+            try
+            {
+                extension.initialize();
+            } catch (error)
+            {
+                console.error('The extension \'' + extension.name + '\' threw an error while trying to initialize: ');
+                console.error(' -- ' + error);
+            }
+        }
     });
 };
 
-Chromecast.addExtension = function (extension)
+chromecast.addExtension = function (extension)
 {
-    Chromecast.extensions.push(extension);
+    chromecast.extensions.push(extension);
 };
 
-Chromecast.tryGetSetting = function (categorySetting)
+chromecast.isEnabled = function (categoryName)
+{
+    var category = chromecast.config[categoryName];
+
+    if (category !== undefined)
+    {
+        return category.enabled || false;
+    }
+
+    return false;
+};
+
+chromecast.tryGetSetting = function (categorySetting)
 {
     var spl = categorySetting.split('|');
 
@@ -57,7 +80,7 @@ Chromecast.tryGetSetting = function (categorySetting)
     var categoryName = spl[0];
     var settingName = spl[1];
 
-    var category = Chromecast.config[categoryName];
+    var category = chromecast.config[categoryName];
 
     if (category !== undefined)
     {

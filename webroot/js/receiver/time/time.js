@@ -1,16 +1,21 @@
-var Time = {
+var time = {
+    name: 'Time',
+    categoryName: 'magic_mirror',
+
     dateLocation : '.date',
     timeLocation : '.time',
 
-    timeFormatSetting: 'Magic Mirror Settings|Time Format',
+    timeFormatSetting: 'magic_mirror|time_format',
 
     updateInterval : 1000,
-    timeFormatValue: 12
+    timeFormatValue: 12,
+
+    initialized: false
 };
 
-Time.initialize = function ()
+time.initialize = function ()
 {
-    this.timeFormatValue = Chromecast.tryGetSetting(this.timeFormatSetting) || this.timeFormatValue;
+    this.timeFormatValue = chromecast.tryGetSetting(this.timeFormatSetting) || this.timeFormatValue;
 
     if (this.timeFormatValue == 12)
     {
@@ -22,25 +27,35 @@ Time.initialize = function ()
         this._includeA = '';
     }
 
-    this.intervalId = setInterval(function()
-    {
-        Time.updateTime();
-    }, 1000);
+    this.update();
+    this.initialized = true;
+
+    this.intervalId = setInterval(this.update.bind(this), 1000);
 };
 
-Time.updateTime = function()
+time.update = function()
 {
     var _now = moment(),
         _date = _now.format('dddd, LL'),
         _time = _now.format(this._timeFormat + ':mm[<span class="sec">]ss' + this._includeA + '[</span>]');
 
-    $(this.dateLocation).html(_date);
-    $(this.timeLocation).html(_time);
+    var $date = $(this.dateLocation);
+    var $time = $(this.timeLocation);
+
+    if (!this.initialized)
+    {
+        $date.updateWithText(_date, 1000);
+        $time.updateWithText(_time, 1000);
+    } else
+    {
+        $date.html(_date);
+        $time.html(_time);
+    }
 };
 
-Time.shutdown = function ()
+time.shutdown = function ()
 {
     clearInterval(this.intervalId);
 };
 
-Chromecast.addExtension(Time);
+chromecast.addExtension(time);
