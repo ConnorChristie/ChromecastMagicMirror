@@ -1,3 +1,5 @@
+$('[data-tooltip="tooltip"]').tooltip();
+
 Chromecast.main();
 
 $('.category-switch input[type="radio"]').change(function()

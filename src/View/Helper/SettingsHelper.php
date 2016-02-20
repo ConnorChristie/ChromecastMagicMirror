@@ -9,40 +9,27 @@ class SettingsHelper extends Helper
     public $helpers = ['Html', 'Form'];
 
     /**
-     * Creates all the inputs for the specified settings
+     * Creates the category panel header with an enable/disable switch is specified
      *
-     * @param int $categoryId The current category it
-     * @param array $settings The settings for that category
-     * @return string The HTML for the inputs
+     * @param string $categoryName The category name
+     * @param bool $showEnableDisableSwitch Whether to show the enable/disable switch or not
+     * @param int $categoryId The category ID
+     * @param bool $enabled If the switch is enabled or disabled
+     * @return string The HTML for the panel header
      */
-    public function inputs($categoryId, array $settings)
+    public function panelHeader($categoryName, $showEnableDisableSwitch = false, $categoryId = 0, $enabled = false)
     {
-        $html = '';
+        $title = $this->Html->tag('h3', $categoryName, [
+            'class' => 'panel-title panel-category' . ($showEnableDisableSwitch ? ' pull-left' : '')
+        ]);
 
-        foreach ($settings as $setting) {
-            $inputOptions = ['label' => __($setting->name), 'default' => $setting->default_value, 'required' => $setting->required];
-            $options = $setting->options;
+        $enableDisableSwitch = '';
 
-            if (!empty($options)) {
-                $arr = unserialize($options);
-
-                if ($arr !== false) {
-                    foreach ($arr as $key => $value) {
-                        $arr[$key] = __($value);
-                    }
-
-                    $inputOptions['options'] = $arr;
-                }
-            }
-
-            $hiddenOptions = ['name' => 'settings[' . $setting->id . '][id]'];
-            $inputOptions['name'] = 'settings[' . $setting->id . '][value]';
-
-            $html .= $this->Form->hidden($categoryId . '.settings.' . $setting->id . '.setting_value.id', $hiddenOptions);
-            $html .= $this->Form->input($categoryId . '.settings.' . $setting->id . '.setting_value.value', $inputOptions);
+        if ($showEnableDisableSwitch) {
+            $enableDisableSwitch = $this->enableDisableSwitch($categoryId, $enabled);
         }
 
-        return $html;
+        return $this->Html->div('panel-heading' . ($showEnableDisableSwitch ? ' clearfix' : ''), $title . $enableDisableSwitch);
     }
 
     /**
@@ -79,6 +66,45 @@ class SettingsHelper extends Helper
         $yesLabel = $this->Html->tag('label', $yesInput . ' ' . __('Enabled'), ['class' => 'btn btn-xs' . $yesClasses]);
         $noLabel = $this->Html->tag('label', $noInput . ' ' . __('Disabled'), ['class' => 'btn btn-xs' . $noClasses]);
 
-        return $this->Html->div('btn-group pull-right category-switch', $yesLabel . $noLabel, ['data-toggle' => 'buttons']);
+        return $this->Html->div('btn-group pull-right category-switch', $yesLabel . $noLabel, [
+            'data-toggle' => 'buttons'
+        ]);
+    }
+
+    /**
+     * Creates all the inputs for the specified settings
+     *
+     * @param int $categoryId The current category it
+     * @param array $settings The settings for that category
+     * @return string The HTML for the inputs
+     */
+    public function inputs($categoryId, array $settings)
+    {
+        $html = '';
+
+        foreach ($settings as $setting) {
+            $inputOptions = ['label' => __($setting->name), 'default' => $setting->default_value, 'required' => $setting->required];
+            $options = $setting->options;
+
+            if (!empty($options)) {
+                $arr = unserialize($options);
+
+                if ($arr !== false) {
+                    foreach ($arr as $key => $value) {
+                        $arr[$key] = __($value);
+                    }
+
+                    $inputOptions['options'] = $arr;
+                }
+            }
+
+            $hiddenOptions = ['name' => 'settings[' . $setting->id . '][id]'];
+            $inputOptions['name'] = 'settings[' . $setting->id . '][value]';
+
+            $html .= $this->Form->hidden($categoryId . '.settings.' . $setting->id . '.setting_value.id', $hiddenOptions);
+            $html .= $this->Form->input($categoryId . '.settings.' . $setting->id . '.setting_value.value', $inputOptions);
+        }
+
+        return $html;
     }
 }
