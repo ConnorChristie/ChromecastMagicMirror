@@ -16,7 +16,7 @@ class ExtensionComponent extends Component
      *
      * @param string $extensionName The extension to get the categories for
      * @return array The categories and all their settings
-     * @throws InternalErrorException Thrown if the extension entry could no be found or there are no categories
+     * @throws InternalErrorException Thrown if the extension entry could not be found or there are no categories
      */
     public function getCategories($extensionName)
     {
@@ -71,6 +71,7 @@ class ExtensionComponent extends Component
      *
      * @param string $extensionName The extension name
      * @return Extension The extension and all its settings
+     * @throws InternalErrorException Thrown if the extension entry could not be found
      */
     protected function _getExtension($extensionName)
     {
@@ -96,7 +97,8 @@ class ExtensionComponent extends Component
             throw new InternalErrorException(
                 __('The extension {0} does not exist in the database.', $extensionName) .
                 '\n' .
-                __('Try reading the {0}Help{1} page for more information.', [$helpPage[0], $helpPage[1]]));
+                __('Try reading the {0}Help{1} page for more information.', [$helpPage[0], $helpPage[1]])
+            );
         }
 
         return $extension;
