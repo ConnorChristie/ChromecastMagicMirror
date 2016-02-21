@@ -15,8 +15,8 @@ class ConfigController extends APIController
      */
     public function index()
     {
-        $categoriesTable = TableRegistry::get('Categories');
-        $settings = $this->_getSettings($categoriesTable);
+        $extensionsTable = TableRegistry::get('Extensions');
+        $settings = $this->_getSettings($extensionsTable);
 
         $this->set('settings', $settings);
         $this->set('_serialize', 'settings');
@@ -25,33 +25,45 @@ class ConfigController extends APIController
     /**
      * Finds all the categories
      *
-     * @param Table $categoriesTable The categories database table
+     * @param Table $extensionsTable The extensions database table
      * @return array The categories and all their settings
      */
-    protected function _getSettings(Table $categoriesTable)
+    protected function _getSettings(Table $extensionsTable)
     {
-        $categories = $categoriesTable
+        $extensions = $extensionsTable
             ->find('all', [
-                'fields' => ['Categories.id', 'Categories.short_name', 'Categories.enabled'],
+                'fields' => ['Extensions.id', 'Extensions.short_name'],
                 'contain' => [
-                    'Settings' => [
-                        'fields' => ['Settings.short_name', 'Settings.category_id', 'Settings.default_value'],
-                        'SettingValues' => [
-                            'fields' => ['SettingValues.value']
+                    'Categories' => [
+                        'fields' => ['Categories.id', 'Categories.extension_id', 'Categories.short_name', 'Categories.enabled'],
+                        'Settings' => [
+                            'fields' => ['Settings.short_name', 'Settings.category_id', 'Settings.default_value'],
+                            'SettingValues' => [
+                                'fields' => ['SettingValues.value']
+                            ]
                         ]
                     ]
                 ]
             ])
-            ->orderAsc('panel_row, panel_column')
             ->all()
             ->toArray();
 
-        $categories = Hash::combine($categories, '{n}.short_name', '{n}');
+        $extensions = Hash::combine($extensions, '{n}.short_name', '{n}');
 
-        foreach ($categories as $category) {
-            $category->settings = Hash::combine($category->settings, '{n}.short_name', '{n}');
+        foreach ($extensions as $extension) {
+            $extension->categories = Hash::combine($extension->categories, '{n}.short_name', '{n}');
+
+            foreach ($extension->categories as $category) {
+                $category->settings = Hash::combine($category->settings, '{n}.short_name', '{n}');
+
+                foreach ($category->settings as $setting) {
+                    if (isset($setting->setting_value->value)) {
+                        $setting->setting_value = $setting->setting_value->value;
+                    }
+                }
+            }
         }
 
-        return $categories;
+        return $extensions;
     }
 }
