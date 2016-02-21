@@ -29,7 +29,7 @@ class SettingsSeed extends AbstractSeed
 
         $category = $this->addCategory($extension, [
             'name' => 'Magic Mirror Settings',
-            'short_name' => 'magic_mirror',
+            'short_name' => 'general',
             'enabled' => true,
             'panel_width' => 6,
             'panel_row' => 0,
@@ -95,7 +95,10 @@ class SettingsSeed extends AbstractSeed
             'short_name' => 'units',
             'required' => 1,
             'default_value' => 'imperial',
-            'options' => ['Imperial', 'Celsius']
+            'options' => [
+                'imperial' => 'Imperial',
+                'celsius' => 'Celsius'
+            ]
         ]);
         $this->addSetting($extension, $category, [
             'name' => 'Open Weather Map API Key',

@@ -1,61 +1,69 @@
-var time = {
-    name: 'Time',
-    categoryName: 'magic_mirror',
+"use strict";
 
-    dateLocation : '.date',
-    timeLocation : '.time',
-
-    timeFormatSetting: 'magic_mirror|time_format',
-
-    updateInterval : 1000,
-    timeFormatValue: 12,
-
-    initialized: false
-};
-
-time.initialize = function ()
+class TimeExtension extends Extension
 {
-    this.timeFormatValue = chromecast.tryGetSetting(this.timeFormatSetting) || this.timeFormatValue;
+    static initVars()
+    {
+        TimeExtension.dateLocation = '.date';
+        TimeExtension.timeLocation = '.time';
 
-    if (this.timeFormatValue == 12)
-    {
-        this._timeFormat = 'h';
-        this._includeA = ' a';
-    } else
-    {
-        this._timeFormat = 'HH';
-        this._includeA = '';
+        TimeExtension.timeFormatSetting = 'time_format';
+
+        TimeExtension.updateInterval = 1000;
+        TimeExtension.timeFormatValue = 12;
     }
 
-    this.update();
-    this.initialized = true;
-
-    this.intervalId = setInterval(this.update.bind(this), 1000);
-};
-
-time.update = function()
-{
-    var _now = moment(),
-        _date = _now.format('dddd, LL'),
-        _time = _now.format(this._timeFormat + ':mm[<span class="sec">]ss' + this._includeA + '[</span>]');
-
-    var $date = $(this.dateLocation);
-    var $time = $(this.timeLocation);
-
-    if (!this.initialized)
+    constructor()
     {
-        $date.updateWithText(_date, 1000);
-        $time.updateWithText(_time, 1000);
-    } else
-    {
-        $date.html(_date);
-        $time.html(_time);
+        super('Time', 'settings', 'general');
+
+        TimeExtension.initVars();
     }
-};
 
-time.shutdown = function ()
-{
-    clearInterval(this.intervalId);
-};
+    initialize()
+    {
+        TimeExtension.timeFormatValue = this.getSetting(TimeExtension.timeFormatSetting) || TimeExtension.timeFormatValue;
 
-chromecast.addExtension(time);
+        if (TimeExtension.timeFormatValue == 12)
+        {
+            this._timeFormat = 'h';
+            this._includeA = ' a';
+        } else
+        {
+            this._timeFormat = 'HH';
+            this._includeA = '';
+        }
+
+        this.update();
+        this.initialized = true;
+
+        this.intervalId = setInterval(this.update.bind(this), 1000);
+    }
+
+    update()
+    {
+        var _now = moment(),
+            _date = _now.format('dddd, LL'),
+            _time = _now.format(this._timeFormat + ':mm[<span class="sec">]ss' + this._includeA + '[</span>]');
+
+        var $date = $(TimeExtension.dateLocation);
+        var $time = $(TimeExtension.timeLocation);
+
+        if (!this.initialized)
+        {
+            $date.updateWithText(_date, 1000);
+            $time.updateWithText(_time, 1000);
+        } else
+        {
+            $date.html(_date);
+            $time.html(_time);
+        }
+    }
+
+    shutdown()
+    {
+        clearInterval(this.intervalId);
+    }
+}
+
+chromecast.addExtension(new TimeExtension());

@@ -8,25 +8,24 @@ var chromecast = {
 
 chromecast.initialize = function ()
 {
-    /*
     cast.receiver.logger.setLevelValue(0);
     window.castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
     console.log('Starting Receiver Manager');
 
-    window.messageBus = window.castReceiverManager.getCastMessageBus(Chromecast.namespace, cast.receiver.CastMessageBus.MessageType.JSON);
+    window.messageBus = window.castReceiverManager.getCastMessageBus(chromecast.namespace, cast.receiver.CastMessageBus.MessageType.JSON);
 
     castReceiverManager.onReady = function (event)
     {
 
     };
-*/
+
     $.getJSON('/api/config', function (config)
     {
         chromecast.config = config;
         chromecast.initialized = true;
 
-        //console.log('Received Ready event: ' + JSON.stringify(event.data));
-        //window.castReceiverManager.setApplicationState(Chromecast.readyStatus);
+        console.log('Received Ready event: ' + JSON.stringify(event.data));
+        window.castReceiverManager.setApplicationState(chromecast.readyStatus);
 
         chromecast.initializeExtensions();
     });
@@ -40,7 +39,7 @@ chromecast.initializeExtensions = function ()
 {
     chromecast.extensions.forEach(function (extension)
     {
-        if (chromecast.isEnabled(extension.categoryName))
+        if (chromecast.isEnabled(extension.extension, extension.category))
         {
             try
             {
@@ -59,11 +58,11 @@ chromecast.addExtension = function (extension)
     chromecast.extensions.push(extension);
 };
 
-chromecast.isEnabled = function (categoryName)
+chromecast.isEnabled = function (extensionName, categoryName)
 {
-    var category = chromecast.config[categoryName];
+    var category = chromecast.getCategory(extensionName, categoryName);
 
-    if (category !== undefined)
+    if (category != null)
     {
         return category.enabled || false;
     }
@@ -71,29 +70,39 @@ chromecast.isEnabled = function (categoryName)
     return false;
 };
 
-chromecast.tryGetSetting = function (categorySetting)
+chromecast.getCategory = function (extensionName, categoryName)
 {
-    var spl = categorySetting.split('|');
+    var extension = chromecast.config[extensionName];
 
-    if (spl.length == 0) return null;
+    if (extension != undefined)
+    {
+        var category = extension['categories'][categoryName];
 
-    var categoryName = spl[0];
-    var settingName = spl[1];
+        if (category != undefined)
+        {
+            return category;
+        }
+    }
 
-    var category = chromecast.config[categoryName];
+    return null;
+};
 
-    if (category !== undefined)
+chromecast.tryGetSetting = function (extensionName, categoryName, settingName)
+{
+    var category = this.getCategory(extensionName, categoryName);
+
+    if (category != null)
     {
         var setting = category['settings'][settingName];
 
-        if (setting !== undefined)
+        if (setting != undefined)
         {
             var defaultValue = setting['default_value'];
             var settingValue = setting['setting_value'];
 
-            if (settingValue !== null)
+            if (settingValue != null)
             {
-                return settingValue['value'];
+                return settingValue;
             } else if (defaultValue !== undefined)
             {
                 return defaultValue;

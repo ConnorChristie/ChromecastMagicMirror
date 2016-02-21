@@ -1,3 +1,5 @@
+"use strict";
+
 jQuery.fn.updateWithText = function(text, speed)
 {
     var dummy = $('<div/>').html(text);
