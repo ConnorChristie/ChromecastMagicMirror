@@ -24,6 +24,19 @@ msgstr ""
 msgid "Disabled"
 msgstr ""
 
+msgid "The extension {0} does not exist in the database."
+msgstr ""
+
+# The {0} and {1} around 'Help' is to surround add the anchor tag
+msgid "Try reading the {0}Help{1} page for more information."
+msgstr ""
+
+msgid "No categories were found for the extension {0}."
+msgstr ""
+
+msgid "Refer to the author's help page for help with this extension."
+msgstr ""
+
 # Language setting
 msgid "Language"
 msgstr ""

@@ -22,7 +22,12 @@ class SettingsSeed extends AbstractSeed
      */
     public function run()
     {
-        $category = $this->addCategory([
+        $extension = $this->addExtension([
+            'name' => 'Settings',
+            'short_name' => 'settings'
+        ]);
+
+        $category = $this->addCategory($extension, [
             'name' => 'Magic Mirror Settings',
             'short_name' => 'magic_mirror',
             'enabled' => true,
@@ -31,24 +36,24 @@ class SettingsSeed extends AbstractSeed
             'panel_column' => 0
         ]);
 
-        $this->addSetting($category, [
+        $this->addSetting($extension, $category, [
             'name' => 'Language',
             'short_name' => 'language',
             'required' => 1,
             'default_value' => 'en',
             'options' => Languages::$languages
         ]);
-        $this->addSetting($category, [
+        $this->addSetting($extension, $category, [
             'name' => 'Rotation',
             'short_name' => 'rotation',
             'required' => 1,
-            'default_value' => 'portrait',
+            'default_value' => 90,
             'options' => [
-                'Portrait',
-                'Landscape'
+                90 => 'Portrait',
+                0 => 'Landscape'
             ]
         ]);
-        $this->addSetting($category, [
+        $this->addSetting($extension, $category, [
             'name' => 'Time Format',
             'short_name' => 'time_format',
             'required' => 1,
@@ -58,7 +63,7 @@ class SettingsSeed extends AbstractSeed
                 '24' => '24 Hour'
             ]
         ]);
-        $this->addSetting($category, [
+        $this->addSetting($extension, $category, [
             'name' => 'Receiver IP',
             'short_name' => 'app_id',
             'required' => 1,
@@ -70,7 +75,7 @@ class SettingsSeed extends AbstractSeed
             ]
         ]);
 
-        $category = $this->addCategory([
+        $category = $this->addCategory($extension, [
             'name' => 'Weather Settings',
             'short_name' => 'weather',
             'enabled' => true,
@@ -79,41 +84,48 @@ class SettingsSeed extends AbstractSeed
             'panel_column' => 1
         ]);
 
-        $this->addSetting($category, [
+        $this->addSetting($extension, $category, [
             'name' => 'Zip Code',
             'short_name' => 'zip_code',
             'required' => 1,
             'default_value' => ''
         ]);
-        $this->addSetting($category, [
+        $this->addSetting($extension, $category, [
             'name' => 'Units',
             'short_name' => 'units',
             'required' => 1,
             'default_value' => 'imperial',
-            'options' => ['imperial', 'celsius']
+            'options' => ['Imperial', 'Celsius']
         ]);
-        $this->addSetting($category, [
+        $this->addSetting($extension, $category, [
             'name' => 'Open Weather Map API Key',
             'short_name' => 'api_key',
-            'required' => 1,
+            'required' => 0,
             'default_value' => ''
         ]);
 
-        $categoriesTable = TableRegistry::get('Categories');
+        $extensionsTable = TableRegistry::get('Extensions');
 
         foreach ($this->_data as $data) {
-            $category = $categoriesTable->newEntity($data, ['associated' => ['Settings']]);
-            $categoriesTable->save($category);
+            $extension = $extensionsTable->newEntity($data, [
+                'associated' => [
+                    'Categories' => [
+                        'associated' => ['Settings']
+                    ]
+                ]
+            ]);
+
+            $extensionsTable->save($extension);
         }
     }
 
     /**
-     * Creates a category with the specified properties
+     * Creates an extension with the specified properties
      *
      * @param array $properties
      * @return mixed
      */
-    public function addCategory($properties)
+    public function addExtension($properties)
     {
         $this->_data[] = $properties;
         $keys = array_keys($this->_data);
@@ -122,20 +134,40 @@ class SettingsSeed extends AbstractSeed
     }
 
     /**
+     * Creates a category with the specified properties
+     *
+     * @param int $extension_id
+     * @param array $properties
+     * @return mixed
+     */
+    public function addCategory($extension_id, $properties)
+    {
+        $categories =& $this->_data[$extension_id]['categories'];
+
+        $categories[] = $properties;
+        $keys = array_keys($categories);
+
+        return end($keys);
+    }
+
+    /**
      * Creates a setting with the specified category id and properties
      *
+     * @param int $extension_id
      * @param int $category_id
      * @param array $properties
      * @return void
      */
-    public function addSetting($category_id, $properties)
+    public function addSetting($extension_id, $category_id, $properties)
     {
+        $settings =& $this->_data[$extension_id]['categories'][$category_id]['settings'];
+
         foreach ($properties as $key => $property) {
             if ($key == 'options' && is_array($property)) {
                 $properties[$key] = serialize($property);
             }
         }
 
-        $this->_data[$category_id]['settings'][] = $properties;
+        $settings[] = $properties;
     }
 }

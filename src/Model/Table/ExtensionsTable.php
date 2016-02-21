@@ -3,7 +3,7 @@ namespace App\Model\Table;
 
 use Cake\ORM\Table;
 
-class CategoriesTable extends Table
+class ExtensionsTable extends Table
 {
     /**
      * @param array $config The config
@@ -11,7 +11,6 @@ class CategoriesTable extends Table
      */
     public function initialize(array $config)
     {
-        $this->belongsTo('Extensions');
-        $this->hasMany('Settings');
+        $this->hasMany('Categories');
     }
 }
