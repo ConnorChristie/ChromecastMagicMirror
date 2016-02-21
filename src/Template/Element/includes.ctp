@@ -2,6 +2,7 @@
 
 <!-- The block is where the element gets included, styles or scripts -->
 
+<?= $this->Html->css('bootstrap.min', ['block' => true]) ?>
 <?= $this->Html->css('bootstrap-flatly.min', ['block' => true]) ?>
 <?= $this->Html->css('style', ['block' => true]) ?>
 

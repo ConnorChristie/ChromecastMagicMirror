@@ -34,8 +34,12 @@ if (Configure::read('debug')):
     $this->end();
 endif;
 ?>
-<h2><?= __d('cake', 'An Internal Error Has Occurred') ?></h2>
-<p class="error">
-    <strong><?= __d('cake', 'Error') ?>: </strong>
-    <?= h($message) ?>
-</p>
+
+<div class="jumbotron">
+    <h1><?= __d('cake', 'Error') ?></h1>
+    <p class="lead">
+        <?= str_replace('\n', '<br>', $message) ?>
+    </p>
+    <p><a class="btn btn-success" href="/" role="button">Back to Settings</a></p>
+</div>
+
