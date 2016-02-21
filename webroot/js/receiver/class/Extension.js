@@ -12,6 +12,17 @@ class Extension
 
     getSetting(settingName)
     {
-        return chromecast.tryGetSetting(this.extension, this.category, settingName);
+        return chromecast.getConfig().tryGetSetting(this.extension, this.category, settingName);
+    }
+
+    waitToComplete(tasks)
+    {
+        var deferred = $.Deferred();
+
+        $.when.apply($, tasks).then(function () {
+            deferred.resolve();
+        });
+
+        return deferred.promise();
     }
 }

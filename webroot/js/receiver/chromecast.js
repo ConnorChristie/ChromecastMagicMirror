@@ -1,116 +1,143 @@
-var chromecast = {
-    readyStatus: 'Magic Mirror is currently running',
-    namespace: 'urn:x-cast:me.connor.magicmirror',
-    initialized: false,
-    extensions: [],
-    config: []
-};
+"use strict";
 
-chromecast.initialize = function ()
-{
-    cast.receiver.logger.setLevelValue(0);
-    window.castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
-    console.log('Starting Receiver Manager');
-
-    window.messageBus = window.castReceiverManager.getCastMessageBus(chromecast.namespace, cast.receiver.CastMessageBus.MessageType.JSON);
-
-    castReceiverManager.onReady = function (event)
+class Chromecast {
+    static initVars()
     {
+        Chromecast.namespace = 'urn:x-cast:me.connor.magicmirror';
+        Chromecast.configUrl = '/api/config';
 
-    };
+        Chromecast.startingStatus = 'Magic Mirror is starting up';
+        Chromecast.loadingConfig = 'Magic Mirror is loading the config';
+        Chromecast.readyStatus = 'Magic Mirror is currently running';
+    }
 
-    $.getJSON('/api/config', function (config)
+    constructor()
     {
-        chromecast.config = config;
-        chromecast.initialized = true;
+        Chromecast.initVars();
 
-        console.log('Received Ready event: ' + JSON.stringify(event.data));
-        window.castReceiverManager.setApplicationState(chromecast.readyStatus);
+        this.initialized = false;
+        this.extensions = [];
+    }
 
-        chromecast.initializeExtensions();
-    });
-
-    castReceiverManager.start({
-        statusText: 'Application is starting'
-    });
-};
-
-chromecast.initializeExtensions = function ()
-{
-    chromecast.extensions.forEach(function (extension)
+    /**
+     * Initializes the chromecast
+     */
+    initialize()
     {
-        if (chromecast.isEnabled(extension.extension, extension.category))
+        cast.receiver.logger.setLevelValue(0);
+
+        window.castReceiverManager = cast.receiver.CastReceiverManager.getInstance();
+        window.messageBus = window.castReceiverManager.getCastMessageBus(Chromecast.namespace, cast.receiver.CastMessageBus.MessageType.JSON);
+
+        this.onReady();
+
+        messageBus.onMessage = this.onMessage.bind(this);
+        castReceiverManager.onReady = this.onReady.bind(this);
+
+        castReceiverManager.start({
+            statusText: Chromecast.startingStatus
+        });
+    }
+
+    /**
+     * The Chromecast calls this when it is ready
+     *
+     * @param event The ready event
+     */
+    onReady(event)
+    {
+        this.loadConfig();
+    }
+
+    loadConfig()
+    {
+        if (this.initialized) return;
+
+        window.castReceiverManager.setApplicationState(Chromecast.loadingConfig);
+
+        $.getJSON(Chromecast.configUrl, function (config)
         {
-            try
+            this.config = new Config(config);
+            this.initialized = true;
+
+            this.initializeExtensions();
+
+            window.castReceiverManager.setApplicationState(Chromecast.readyStatus);
+        }.bind(this));
+    }
+
+    /**
+     * This checks if the extensions are enabled and initializes them if they are
+     */
+    initializeExtensions()
+    {
+        this.extensions.forEach(function (extension)
+        {
+            if (!extension.initialized && this.getConfig().isCategoryEnabled(extension.extension, extension.category))
             {
-                extension.initialize();
-            } catch (error)
-            {
-                console.error('The extension \'' + extension.name + '\' threw an error while trying to initialize: ');
-                console.error(' -- ' + error);
+                try
+                {
+                    extension.initialize();
+                } catch (error)
+                {
+                    console.error('The extension \'' + extension.name + '\' threw an error while initializing: ');
+                    console.error(' -- ' + error);
+                }
             }
-        }
-    });
-};
-
-chromecast.addExtension = function (extension)
-{
-    chromecast.extensions.push(extension);
-};
-
-chromecast.isEnabled = function (extensionName, categoryName)
-{
-    var category = chromecast.getCategory(extensionName, categoryName);
-
-    if (category != null)
-    {
-        return category.enabled || false;
+        }.bind(this));
     }
 
-    return false;
-};
-
-chromecast.getCategory = function (extensionName, categoryName)
-{
-    var extension = chromecast.config[extensionName];
-
-    if (extension != undefined)
+    onMessage(event)
     {
-        var category = extension['categories'][categoryName];
+        var data = event.data;
 
-        if (category != undefined)
+        if (data.reload)
         {
-            return category;
+            this.shutdownExtensions(true);
         }
     }
 
-    return null;
-};
-
-chromecast.tryGetSetting = function (extensionName, categoryName, settingName)
-{
-    var category = this.getCategory(extensionName, categoryName);
-
-    if (category != null)
+    /**
+     * Shutdowns all the extensions very nicely
+     *
+     * @param restart If the extensions should be restarted or not
+     */
+    shutdownExtensions(restart)
     {
-        var setting = category['settings'][settingName];
+        var shutdownTasks = [];
 
-        if (setting != undefined)
+        this.extensions.forEach(function (extension)
         {
-            var defaultValue = setting['default_value'];
-            var settingValue = setting['setting_value'];
+            shutdownTasks.push(extension.shutdown());
+        });
 
-            if (settingValue != null)
-            {
-                return settingValue;
-            } else if (defaultValue !== undefined)
-            {
-                return defaultValue;
-            }
-        }
+        $.when.apply($, shutdownTasks).then(function ()
+        {
+            this.initialized = false;
+
+            if (restart) this.loadConfig();
+        }.bind(this));
     }
 
-    // Show the error on the screen?
+    /**
+     * Adds an extension
+     *
+     * @param extension The extension
+     */
+    addExtension(extension)
+    {
+        this.extensions.push(extension);
+    }
 
-    return null;
-};
+    /**
+     * Gets the config
+     *
+     * @returns {Config} The config
+     */
+    getConfig()
+    {
+        return this.config;
+    }
+}
+
+window.chromecast = new Chromecast();

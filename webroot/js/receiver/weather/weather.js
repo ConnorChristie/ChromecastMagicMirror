@@ -54,6 +54,9 @@ class WeatherExtension extends Extension
         WeatherExtension.initVars();
     }
 
+    /**
+     * Initializes the current parameters and such from the config
+     */
     initialize()
     {
         this.params = {};
@@ -61,9 +64,9 @@ class WeatherExtension extends Extension
         this.params.zip = this.getSetting(WeatherExtension.zipCodeSetting) || WeatherExtension.params.zip;
         this.params.units = this.getSetting(WeatherExtension.unitsSetting) || WeatherExtension.params.units;
         this.params.APPID = this.getSetting(WeatherExtension.appIdSetting) || WeatherExtension.params.APPID;
-        this.params.lang = chromecast.tryGetSetting('settings', 'general', 'language') || WeatherExtension.params.lang;
+        this.params.lang = chromecast.getConfig().tryGetSetting('settings', 'general', 'language') || WeatherExtension.params.lang;
 
-        var timeFormatValue = chromecast.tryGetSetting('settings', 'general', 'time_format') || 12;
+        var timeFormatValue = chromecast.getConfig().tryGetSetting('settings', 'general', 'time_format') || 12;
 
         if (timeFormatValue == 12)
         {
@@ -78,6 +81,9 @@ class WeatherExtension extends Extension
         this.intervalId = setInterval(this.update.bind(this), WeatherExtension.updateInterval);
     }
 
+    /**
+     * Updates the current weather and forecast on the mirror
+     */
     update()
     {
         this.updateCurrentWeather();
@@ -86,6 +92,9 @@ class WeatherExtension extends Extension
         setTimeout(this.updateWeatherForecast.bind(this), 500);
     }
 
+    /**
+     * Updates the current weather on the mirror
+     */
     updateCurrentWeather()
     {
         var url = WeatherExtension.apiBase + '/' + WeatherExtension.apiVersion + '/' + WeatherExtension.weatherEndpoint;
@@ -123,6 +132,9 @@ class WeatherExtension extends Extension
         }.bind(this));
     }
 
+    /**
+     * Updates the current weather forecast on the mirror
+     */
     updateWeatherForecast()
     {
         var url = WeatherExtension.apiBase + '/' + WeatherExtension.apiVersion + '/' + WeatherExtension.forecastEndpoint;
@@ -167,16 +179,40 @@ class WeatherExtension extends Extension
         }.bind(this));
     }
 
+    /**
+     * Clears the current running interval
+     */
     shutdown()
     {
         clearInterval(this.intervalId);
+
+        this.initialized = false;
+
+        return this.waitToComplete([
+            $(WeatherExtension.temperatureLocation).updateWithText('', WeatherExtension.fadeInterval),
+            $(WeatherExtension.windSunLocation).updateWithText('', WeatherExtension.fadeInterval),
+            $(WeatherExtension.forecastLocation).updateWithText('', WeatherExtension.fadeInterval),
+            $(WeatherExtension.locationLocation).updateWithText('', WeatherExtension.fadeInterval)
+        ]);
     }
 
+    /**
+     * Rounds the temperature value to have no decimals
+     *
+     * @param temperature The temperature as a string
+     * @returns {string} The rounded temperature value
+     */
     roundValue(temperature)
     {
         return parseFloat(temperature).toFixed(0);
     }
 
+    /**
+     * Converts an unknown unit into beaufort units
+     *
+     * @param ms Unknown
+     * @returns {int} The beaufort value
+     */
     ms2Beaufort(ms)
     {
         var kmh = ms * 60 * 60 / 1000;

@@ -9,8 +9,10 @@ class TimeExtension extends Extension
 
         TimeExtension.timeFormatSetting = 'time_format';
 
-        TimeExtension.updateInterval = 1000;
         TimeExtension.timeFormatValue = 12;
+
+        TimeExtension.updateInterval = 1000;
+        TimeExtension.fadeInterval = 1000;
     }
 
     constructor()
@@ -20,6 +22,9 @@ class TimeExtension extends Extension
         TimeExtension.initVars();
     }
 
+    /**
+     * Initializes the current time format and such from the config
+     */
     initialize()
     {
         TimeExtension.timeFormatValue = this.getSetting(TimeExtension.timeFormatSetting) || TimeExtension.timeFormatValue;
@@ -37,9 +42,12 @@ class TimeExtension extends Extension
         this.update();
         this.initialized = true;
 
-        this.intervalId = setInterval(this.update.bind(this), 1000);
+        this.intervalId = setInterval(this.update.bind(this), TimeExtension.updateInterval);
     }
 
+    /**
+     * Updates the current time on the mirror
+     */
     update()
     {
         var _now = moment(),
@@ -51,8 +59,8 @@ class TimeExtension extends Extension
 
         if (!this.initialized)
         {
-            $date.updateWithText(_date, 1000);
-            $time.updateWithText(_time, 1000);
+            $date.updateWithText(_date, TimeExtension.fadeInterval);
+            $time.updateWithText(_time, TimeExtension.fadeInterval);
         } else
         {
             $date.html(_date);
@@ -60,9 +68,19 @@ class TimeExtension extends Extension
         }
     }
 
+    /**
+     * Clears the running interval and removes any text on the mirror
+     */
     shutdown()
     {
         clearInterval(this.intervalId);
+
+        this.initialized = false;
+
+        return this.waitToComplete([
+            $(TimeExtension.dateLocation).updateWithText('', TimeExtension.fadeInterval),
+            $(TimeExtension.timeLocation).updateWithText('', TimeExtension.fadeInterval)
+        ]);
     }
 }
 
