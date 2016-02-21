@@ -1,16 +1,19 @@
 <?php
 namespace App\Controller\Component;
 
+use App\Model\Entity\Category;
 use App\Model\Entity\Extension;
 use App\Model\Entity\SettingValue;
 use Cake\Controller\Component;
+use Cake\Network\Exception\BadRequestException;
 use Cake\Network\Exception\InternalErrorException;
-use Cake\ORM\Table;
 use Cake\ORM\TableRegistry;
 use Cake\Utility\Hash;
 
 class ExtensionComponent extends Component
 {
+    private $_propertyNotFound = 'The {0} property for the {1} could not be found.';
+
     /**
      * Finds all the categories
      *
@@ -23,7 +26,8 @@ class ExtensionComponent extends Component
         $extension = $this->_getExtension($extensionName);
         $categories = $extension->categories;
 
-        if (empty($categories)) {
+        if (empty($categories))
+        {
             throw new InternalErrorException(
                 __('No categories were found for the extension {0}.', $extension->name) .
                 '\n' .
@@ -33,7 +37,8 @@ class ExtensionComponent extends Component
 
         $categories = Hash::combine($categories, '{n}.id', '{n}');
 
-        foreach ($categories as $category) {
+        foreach ($categories as $category)
+        {
             $category->settings = Hash::combine(Hash::sort($category->settings, '{n}.id', 'asc'), '{n}.id', '{n}');
         }
 
@@ -41,29 +46,97 @@ class ExtensionComponent extends Component
     }
 
     /**
-     * Saves the setting values from the posted form
+     * Saves the categories array that was specified
      *
-     * @param array $data The posted date from the settings form
-     * @param Table $settingValuesTable The setting values table
-     * @return bool If the settings were successfully saved
+     * @param array $categories An array of categories to save
+     * @return bool If the categories were successfully saved
      */
-    public function saveSettingValues($data, Table $settingValuesTable)
+    public function saveCategories($categories)
     {
         $success = true;
 
-        foreach ($data['settings'] as $settingId => $setting) {
-            $model = new SettingValue([
-                'id' => $setting['id'],
-                'setting_id' => $settingId,
-                'value' => $setting['value']
+        $this->_validateCategoriesData($categories);
+        $categoriesTable = TableRegistry::get('Categories');
+
+        foreach ($categories as $id => $category)
+        {
+            $model = new Category([
+                'id' => $id,
+                'enabled' => $category['enabled']
             ]);
 
-            if (!$settingValuesTable->save($model)) {
-                $success = false;
-            }
+            $success = $success && $categoriesTable->save($model);
         }
 
         return $success;
+    }
+
+    /**
+     * Saves the settings array that was specified
+     *
+     * @param array $settings An array of settings to save
+     * @return bool If the settings were successfully saved
+     */
+    public function saveSettingValues($settings)
+    {
+        $success = true;
+
+        $this->_validateSettingsData($settings);
+        $settingValuesTable = TableRegistry::get('SettingValues');
+
+        foreach ($settings as $id => $setting)
+        {
+            $model = new SettingValue([
+                'id' => $setting['id'],
+                'setting_id' => $id,
+                'value' => $setting['value']
+            ]);
+
+            $success = $success && $settingValuesTable->save($model);
+        }
+
+        return $success;
+    }
+
+    /**
+     * Validates the categories array
+     *
+     * @param array $categories The categories array to be validated
+     * @return void
+     * @throws BadRequestException If the validation fails
+     */
+    protected function _validateCategoriesData($categories)
+    {
+        foreach ($categories as $id => $category)
+        {
+            if (isset($category['enabled']))
+            {
+                throw new BadRequestException(__($this->_propertyNotFound, ['enabled', 'category']));
+            }
+        }
+    }
+
+    /**
+     * Validates the settings array
+     *
+     * @param array $settings The settings array to be validated
+     * @return void
+     * @throws BadRequestException If the validation fails
+     */
+    protected function _validateSettingsData($settings)
+    {
+        foreach ($settings as $id => $setting)
+        {
+            if (!isset($setting['id']))
+            {
+                throw new BadRequestException(__($this->_propertyNotFound, ['id', 'setting']));
+            }
+
+            if (!isset($setting['value']))
+            {
+                throw new BadRequestException(__($this->_propertyNotFound, ['value', 'setting']));
+            }
+        }
     }
 
     /**
@@ -91,7 +164,8 @@ class ExtensionComponent extends Component
             ->where(['Extensions.short_name' => $extensionName])
             ->first();
 
-        if ($extension == null) {
+        if ($extension == null)
+        {
             $helpPage = ['<a href="/help">', '</a>'];
 
             throw new InternalErrorException(

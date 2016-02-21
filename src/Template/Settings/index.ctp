@@ -7,7 +7,7 @@
             <div class="col-md-<?= $category->panel_width ?>">
                 <div class="panel panel-primary">
                     <?php
-                    if ($category->short_name != 'magic_mirror') {
+                    if ($category->short_name != 'general') {
                         echo $this->Settings->panelHeader(__($category->name), true, $id, $category->enabled);
                     } else {
                         echo $this->Settings->panelHeader(__($category->name));

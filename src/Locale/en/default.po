@@ -24,19 +24,6 @@ msgstr ""
 msgid "Disabled"
 msgstr ""
 
-msgid "The extension {0} does not exist in the database."
-msgstr ""
-
-# The {0} and {1} around 'Help' is to surround add the anchor tag
-msgid "Try reading the {0}Help{1} page for more information."
-msgstr ""
-
-msgid "No categories were found for the extension {0}."
-msgstr ""
-
-msgid "Refer to the author's help page for help with this extension."
-msgstr ""
-
 # Language setting
 msgid "Language"
 msgstr ""
@@ -88,6 +75,9 @@ msgid "Successfully updated the settings!"
 msgstr ""
 
 msgid "Unable to save your settings, are you connected to your database?"
+msgstr ""
+
+msgid "Invalid form submission, try re-submitting the form."
 msgstr ""
 
 # Help tab
@@ -182,6 +172,29 @@ msgid "Make sure your Chromecast is connected to the internet and not just your 
 msgstr ""
 
 msgid "There might have been a bad receiver update, this will be fixed automatically"
+msgstr ""
+
+# Errors
+msgid "The extension {0} does not exist in the database."
+msgstr ""
+
+# The {0} and {1} around 'Help' is to surround add the anchor tag
+msgid "Try reading the {0}Help{1} page for more information."
+msgstr ""
+
+msgid "No categories were found for the extension {0}."
+msgstr ""
+
+msgid "Refer to the author's help page for help with this extension."
+msgstr ""
+
+msgid "The {0} property for the {1} could not be found."
+msgstr ""
+
+msgid "Invalid form submission, try re-submitting the form."
+msgstr ""
+
+msgid "Invalid form submission, error: {0}"
 msgstr ""
 
 # Footer

@@ -50,14 +50,18 @@ class ConfigController extends APIController
 
         $extensions = Hash::combine($extensions, '{n}.short_name', '{n}');
 
-        foreach ($extensions as $extension) {
+        foreach ($extensions as $extension)
+        {
             $extension->categories = Hash::combine($extension->categories, '{n}.short_name', '{n}');
 
-            foreach ($extension->categories as $category) {
+            foreach ($extension->categories as $category)
+            {
                 $category->settings = Hash::combine($category->settings, '{n}.short_name', '{n}');
 
-                foreach ($category->settings as $setting) {
-                    if (isset($setting->setting_value->value)) {
+                foreach ($category->settings as $setting)
+                {
+                    if (isset($setting->setting_value->value))
+                    {
                         $setting->setting_value = $setting->setting_value->value;
                     }
                 }
