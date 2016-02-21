@@ -1,6 +1,6 @@
 # Chromecast Magic Mirror
 
-[![Build Status](https://img.shields.io/travis/ConnorChristie/ChromecastMagicMirror.svg?style=flat-square)](https://travis-ci.org/TheChillerCraft/ChromecastMagicMirror)
+[![Build Status](https://img.shields.io/travis/ConnorChristie/ChromecastMagicMirror.svg?style=flat-square)](https://travis-ci.org/ConnorChristie/ChromecastMagicMirror)
 [![License](https://img.shields.io/packagist/l/cakephp/app.svg?style=flat-square)](https://packagist.org/packages/cakephp/app)
 
 This Magic Mirror settings interface uses [CakePHP](http://cakephp.org/) for the backend and simple PHP and HTML for the view that shows on the actual Magic Mirror.
