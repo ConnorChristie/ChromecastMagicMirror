@@ -2,9 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\BaseController\NavigationController;
-use App\Model\Entity\Category;
 use Cake\Network\Exception\BadRequestException;
-use Cake\ORM\TableRegistry;
 
 class SettingsController extends NavigationController
 {
@@ -28,46 +26,50 @@ class SettingsController extends NavigationController
      */
     public function update()
     {
-        if ($this->request->is('PUT'))
+        $this->request->allowMethod('PUT');
+        $data = $this->request->data;
+
+        if ($this->_validateSettingsForm($data))
         {
-            $data = $this->request->data;
-
-            if ($this->_validateSettingsForm($data))
+            try
             {
-                try
+                $success = $this->Extension->saveCategories($data['categories']);
+                $success = $success && $this->Extension->saveSettingValues($data['settings']);
+
+                if ($success)
                 {
-                    $success = $this->Extension->saveCategories($data['categories']);
-                    $success = $success && $this->Extension->saveSettingValues($data['settings']);
+                    $reloadMessage = '';
 
-                    if ($success)
+                    if ($data['auto_refresh'])
                     {
-                        $reloadMessage = '';
+                        $this->Chromecast->refresh();
 
-                        if ($data['auto_refresh'])
-                        {
-                            $this->Chromecast->refresh();
-
-                            $reloadMessage = ' ' . __('If your Magic Mirror is currently running, it should automatically refresh very soon!');
-                        }
-
-                        $this->Flash->success(__('Successfully updated the settings!') . $reloadMessage);
-                    } else
-                    {
-                        $this->Flash->error(__('Unable to save your settings, are you connected to your database?'));
+                        $reloadMessage = ' ' . __('If your Magic Mirror is currently running, it should automatically refresh very soon!');
                     }
-                } catch (BadRequestException $e)
+
+                    $this->Flash->success(__('Successfully updated the settings!') . $reloadMessage);
+                } else
                 {
-                    $this->Flash->error(__('Invalid form submission, error: {0}', $e->getMessage()));
+                    $this->Flash->error(__('Unable to save your settings, are you connected to your database?'));
                 }
-            } else
+            } catch (BadRequestException $e)
             {
-                $this->Flash->error(__('Invalid form submission, try re-submitting the form.'));
+                $this->Flash->error(__('Invalid form submission, error: {0}', $e->getMessage()));
             }
+        } else
+        {
+            $this->Flash->error(__('Invalid form submission, try re-submitting the form.'));
         }
 
-        $this->redirect(['action' => 'index']);
+        $this->render('update_settings', 'ajax');
     }
 
+    /**
+     * Validates the update form
+     *
+     * @param array $data The form data
+     * @return bool If the form is valid or not
+     */
     protected function _validateSettingsForm($data)
     {
         if (!isset($data['save_config']) || !isset($data['auto_refresh']))

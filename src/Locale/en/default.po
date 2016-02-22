@@ -48,8 +48,40 @@ msgstr ""
 msgid "24 Hour"
 msgstr ""
 
-#Receiver IP setting
+# Receiver IP setting
 msgid "Receiver IP"
+msgstr ""
+
+# Weather settings
+msgid "Weather Settings"
+msgstr ""
+
+msgid "Zip Code"
+msgstr ""
+
+msgid "Units"
+msgstr ""
+
+msgid "Open Weather Map API Key"
+msgstr ""
+
+# Compliment settings
+msgid "Compliment Settings"
+msgstr ""
+
+msgid "Change Every (ms)"
+msgstr ""
+
+msgid "Transition Fade Interval (ms)"
+msgstr ""
+
+msgid "Morning Compliments"
+msgstr ""
+
+msgid "Afternoon Compliments"
+msgstr ""
+
+msgid "Evening Compliments"
 msgstr ""
 
 # Actions

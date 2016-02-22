@@ -15,22 +15,22 @@ use Cake\ORM\Entity;
 class AppController extends Controller
 {
     public $helpers = [
-        'Html' => [
-            'className' => 'Bootstrap.BootstrapHtml'
-        ],
-        'Form' => [
-            'className' => 'Bootstrap.BootstrapForm'
-        ],
-        'Flash' => [
-            'className' => 'Bootstrap.BootstrapFlash'
-        ],
-        'Paginator' => [
-            'className' => 'Bootstrap.BootstrapPaginator'
-        ],
-        'Modal' => [
-            'className' => 'Bootstrap.BootstrapModal'
-        ]
-    ];
+    'Html' => [
+        'className' => 'Bootstrap.BootstrapHtml'
+    ],
+    'Form' => [
+        'className' => 'Bootstrap.BootstrapForm'
+    ],
+    'Flash' => [
+        'className' => 'Bootstrap.BootstrapFlash'
+    ],
+    'Paginator' => [
+        'className' => 'Bootstrap.BootstrapPaginator'
+    ],
+    'Modal' => [
+        'className' => 'Bootstrap.BootstrapModal'
+    ]
+];
 
     /**
      * Initialization hook method.

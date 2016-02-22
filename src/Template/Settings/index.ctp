@@ -1,4 +1,4 @@
-<?= $this->Form->create($model, ['url' => ['action' => 'update']]) ?>
+<?= $this->Form->create($model, ['id' => 'settings_form', 'url' => ['action' => 'update']]) ?>
     <div class="row">
         <?php $row = 0;
         foreach ($model as $id => $category): ?>
@@ -7,9 +7,11 @@
             <div class="col-md-<?= $category->panel_width ?>">
                 <div class="panel panel-primary">
                     <?php
-                    if ($category->short_name != 'general') {
+                    if ($category->short_name != 'general')
+                    {
                         echo $this->Settings->panelHeader(__($category->name), true, $id, $category->enabled);
-                    } else {
+                    } else
+                    {
                         echo $this->Settings->panelHeader(__($category->name));
                     }
                     ?>
@@ -19,7 +21,7 @@
                     </div>
                 </div>
             </div>
-        <?php $row = $category->panel_row;
+            <?php $row = $category->panel_row;
         endforeach; ?>
     </div>
 

@@ -1,7 +1,5 @@
 $('[data-tooltip="tooltip"]').tooltip();
 
-Chromecast.main();
-
 $('.category-switch input[type="radio"]').change(function()
 {
     var button = $(this).parent().parent().find('.btn');
@@ -17,3 +15,34 @@ $('.category-switch input[type="radio"]').change(function()
         button.addClass('btn-warning');
     }
 });
+
+Chromecast.main();
+
+$('#settings_form').submit(function ()
+{
+    var data = $(this).serializeArray();
+    data.push({name: 'save_config'});
+
+    $.ajax({
+        url: '/settings/update',
+        type: 'POST',
+        data: $.param(data),
+        success: function ()
+        {
+            reloadFlash();
+            scrollToTop();
+        }
+    });
+
+    return false;
+});
+
+function reloadFlash()
+{
+    $('.flash').load('/flash');
+}
+
+function scrollToTop()
+{
+    $('html, body').animate({scrollTop : 0}, 200);
+}

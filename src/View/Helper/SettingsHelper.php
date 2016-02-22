@@ -24,7 +24,8 @@ class SettingsHelper extends Helper
 
         $enableDisableSwitch = '';
 
-        if ($showEnableDisableSwitch) {
+        if ($showEnableDisableSwitch)
+        {
             $enableDisableSwitch = $this->enableDisableSwitch($categoryId, $enabled);
         }
 
@@ -79,17 +80,37 @@ class SettingsHelper extends Helper
      */
     public function inputs($categoryId, array $settings)
     {
-        $html = '';
+        $this->Form->templates([
+            'inputContainer' => '<div class="form-group col-md-{{panel_width}} {{type}}{{required}}">{{content}}</div>'
+        ]);
 
-        foreach ($settings as $setting) {
-            $inputOptions = ['label' => __($setting->name), 'default' => $setting->default_value, 'required' => $setting->required];
+        $html = '<div class="row">';
+        $row = 0;
+
+        foreach ($settings as $setting)
+        {
+            $html .= $setting->input_row != $row ? '</div><div class="row">' : '';
+
+            $inputOptions = [
+                'type' => $setting->type,
+                'label' => __($setting->name),
+                'default' => $setting->default_value,
+                'required' => $setting->required,
+                'templateVars' => [
+                    'panel_width' => $setting->input_width
+                ]
+            ];
+
             $options = $setting->options;
 
-            if (!empty($options)) {
+            if (!empty($options))
+            {
                 $arr = unserialize($options);
 
-                if ($arr !== false) {
-                    foreach ($arr as $key => $value) {
+                if ($arr !== false)
+                {
+                    foreach ($arr as $key => $value)
+                    {
                         $arr[$key] = __($value);
                     }
 
@@ -102,7 +123,11 @@ class SettingsHelper extends Helper
 
             $html .= $this->Form->hidden($categoryId . '.settings.' . $setting->id . '.setting_value.id', $hiddenOptions);
             $html .= $this->Form->input($categoryId . '.settings.' . $setting->id . '.setting_value.value', $inputOptions);
+
+            $row = $setting->input_row;
         }
+
+        $html .= '</div>';
 
         return $html;
     }

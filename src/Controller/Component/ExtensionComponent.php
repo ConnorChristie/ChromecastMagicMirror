@@ -39,7 +39,7 @@ class ExtensionComponent extends Component
 
         foreach ($categories as $category)
         {
-            $category->settings = Hash::combine(Hash::sort($category->settings, '{n}.id', 'asc'), '{n}.id', '{n}');
+            $category->settings = Hash::combine($category->settings, '{n}.id', '{n}');
         }
 
         return $categories;
@@ -109,7 +109,7 @@ class ExtensionComponent extends Component
     {
         foreach ($categories as $id => $category)
         {
-            if (isset($category['enabled']))
+            if (!isset($category['enabled']))
             {
                 throw new BadRequestException(__($this->_propertyNotFound, ['enabled', 'category']));
             }
@@ -156,6 +156,7 @@ class ExtensionComponent extends Component
                     'Categories' => [
                         'sort' => ['Categories.panel_row' => 'ASC', 'Categories.panel_column' => 'ASC'],
                         'Settings' => [
+                            'sort' => ['Settings.input_row' => 'ASC', 'Settings.input_column' => 'ASC'],
                             'SettingValues'
                         ]
                     ]

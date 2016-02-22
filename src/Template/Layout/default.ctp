@@ -17,7 +17,9 @@
         <?= $this->element('header') ?>
 
         <div class="container">
-            <?= $this->Flash->render() ?>
+            <div class="flash">
+                <?= $this->Flash->render() ?>
+            </div>
 
             <?= $this->fetch('content') ?>
 
